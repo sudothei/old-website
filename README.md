@@ -1,4 +1,4 @@
-<img style="position: absolute;" src="https://raw.githubusercontent.com/sudothei/sudothei/main/binaryrain.svg" width="100%" height="100px">
+<img src="https://raw.githubusercontent.com/sudothei/sudothei/main/binaryrain.svg" width="100%" height="100px">
 <h3>𝙿𝚛𝚘𝚐𝚛𝚊𝚖𝚖𝚒𝚗𝚐 𝙻𝚊𝚗𝚐𝚞𝚊𝚐𝚎𝚜</h3>
 <p align='left'>
   <img align='left' alt="C" src="https://img.shields.io/badge/-C-A8B9CC?style=plastic&logo=c&logoColor=ffffff" />

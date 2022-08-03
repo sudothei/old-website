@@ -39,6 +39,11 @@ module.exports = (env) => {
           test: /\.(webp)$/i,
           type: "asset/resource",
         },
+        {
+          test: /\.(wasm)$/,
+          loader: "file-loader",
+          type: "javascript/auto",
+        },
       ],
     },
     plugins: [

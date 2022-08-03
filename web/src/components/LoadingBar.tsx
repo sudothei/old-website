@@ -7,11 +7,9 @@ export const LoadingBar = () => {
 
   const handleLoading = () => {
     setLoading(false);
-    console.log("loaded");
   };
 
   useEffect(() => {
-    console.log("useEffect");
     window.addEventListener("load", handleLoading);
     return () => window.removeEventListener("load", handleLoading);
   }, []);

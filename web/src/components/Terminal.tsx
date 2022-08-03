@@ -114,14 +114,44 @@ export const Terminal = () => {
   ]);
 
   let repl: any;
+  let wasm: any;
 
   (async () => {
-    await init(await fetch("sudothei_lisp_bg.wasm"));
+    wasm = await init(await fetch("sudothei_lisp_bg.wasm"));
     repl = Repl.new();
   })();
 
   const onTerminalSubmit = (input: string) => {
-    const output = repl.eval(input);
+    const offset = repl.eval(input);
+
+    // obtain the module memory
+    const linearMemory = wasm.memory;
+
+    // create a buffer starting at the reference to the exported string
+    const charArr: number[] = [];
+    for (
+      let char: number | null = new DataView(
+        linearMemory.buffer,
+        offset,
+        1
+      ).getUint8(0);
+      char != 0;
+      char = new DataView(
+        linearMemory.buffer,
+        offset + charArr.length,
+        1
+      ).getUint8(0)
+    ) {
+      charArr.push(char);
+    }
+    const buffer: Uint8Array = Uint8Array.from(charArr);
+
+    // create a string from this buffer
+    let output = "";
+    for (let i = 0; i < buffer.length; i++) {
+      output += String.fromCharCode(buffer[i]);
+    }
+
     setHistory((history) => [...history, output]);
   };
 

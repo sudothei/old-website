@@ -92,7 +92,7 @@ const TerminalInput = (props: { onSubmit: (input: string) => void }) => {
 export const Terminal = () => {
   const titleArt =
     window.innerWidth < 700
-      ? "Welcome to SudoThei, a text adventure game"
+      ? "Sudothei Lisp Interpreter"
       : `
   ██████  █    ██ ▓█████▄  ▒█████  ▄▄▄█████▓ ██░ ██ ▓█████  ██▓
 ▒██    ▒  ██  ▓██▒▒██▀ ██▌▒██▒  ██▒▓  ██▒ ▓▒▓██░ ██▒▓█   ▀ ▓██▒
@@ -107,51 +107,17 @@ export const Terminal = () => {
 │  │└─┐├─┘  ││││ │ ├┤ ├┬┘├─┘├┬┘├┤  │ ├┤ ├┬┘
 ┴─┘┴└─┘┴    ┴┘└┘ ┴ └─┘┴└─┴  ┴└─└─┘ ┴ └─┘┴└─
 `;
-  const [history, setHistory] = useState<(string | number)[]>([
-    titleArt,
-    "test1",
-    "test2",
-  ]);
+  const [history, setHistory] = useState<(string | number)[]>([titleArt]);
 
   let repl: any;
-  let wasm: any;
 
   (async () => {
-    wasm = await init(await fetch("sudothei_lisp_bg.wasm"));
+    await init(await fetch("sudothei_lisp_bg.wasm"));
     repl = Repl.new();
   })();
 
   const onTerminalSubmit = (input: string) => {
-    const offset = repl.eval(input);
-
-    // obtain the module memory
-    const linearMemory = wasm.memory;
-
-    // create a buffer starting at the reference to the exported string
-    const charArr: number[] = [];
-    for (
-      let char: number | null = new DataView(
-        linearMemory.buffer,
-        offset,
-        1
-      ).getUint8(0);
-      char != 0;
-      char = new DataView(
-        linearMemory.buffer,
-        offset + charArr.length,
-        1
-      ).getUint8(0)
-    ) {
-      charArr.push(char);
-    }
-    const buffer: Uint8Array = Uint8Array.from(charArr);
-
-    // create a string from this buffer
-    let output = "";
-    for (let i = 0; i < buffer.length; i++) {
-      output += String.fromCharCode(buffer[i]);
-    }
-
+    const output = repl.eval(input);
     setHistory((history) => [...history, output]);
   };
 

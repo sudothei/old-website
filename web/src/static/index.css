@@ -37,7 +37,7 @@ textarea {
 
 body {
     text-align: center;
-    font-family: 'Syne Mono', 'Monospace';
+    font-family: 'Syne Mono';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background: url("static/media/background-tileable.webp");
@@ -96,6 +96,25 @@ canvas {
     display: flex;
     justify-content: center;
     flex-flow: wrap;
+}
+
+.symbol-btn, .symbol-btn-selected {
+    border: 3px solid #0f0;
+    min-height: 50px;
+    max-height: 50px;
+    min-width: 50px;
+    max-width: 50px;
+    margin: 5px;
+    font-size: 4em;
+    cursor: pointer;
+    font-family: monospace;
+    line-height: 50px;
+    font-weight: bold;
+}
+
+.symbol-btn-selected {
+    background: #0f0;
+    color: #000;
 }
 
 a {

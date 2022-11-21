@@ -122,6 +122,20 @@ export class Repl {
         }
     }
     /**
+    * @param {string} procedure
+    * @param {string} arg1
+    * @param {string} arg2
+    */
+    apply(procedure, arg1, arg2) {
+        const ptr0 = passStringToWasm0(procedure, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len0 = WASM_VECTOR_LEN;
+        const ptr1 = passStringToWasm0(arg1, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len1 = WASM_VECTOR_LEN;
+        const ptr2 = passStringToWasm0(arg2, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len2 = WASM_VECTOR_LEN;
+        wasm.repl_apply(this.ptr, ptr0, len0, ptr1, len1, ptr2, len2);
+    }
+    /**
     * @returns {Repl}
     */
     static new() {
@@ -165,7 +179,11 @@ function getImports() {
     const imports = {};
     imports.wbg = {};
     imports.wbg.__wbg_alert_0d2388334cac4bf4 = function(arg0, arg1) {
-        alert(getStringFromWasm0(arg0, arg1));
+        try {
+            alert(getStringFromWasm0(arg0, arg1));
+        } finally {
+            wasm.__wbindgen_free(arg0, arg1);
+        }
     };
     imports.wbg.__wbindgen_throw = function(arg0, arg1) {
         throw new Error(getStringFromWasm0(arg0, arg1));

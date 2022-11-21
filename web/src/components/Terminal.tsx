@@ -59,7 +59,6 @@ const TerminalInput = (props: { onSubmit: (input: string) => void }) => {
           width: "100%",
           display: "flex",
           fontWeight: 900,
-          border: "3px solid $0f0",
         }}
       >
         <span
@@ -82,6 +81,7 @@ const TerminalInput = (props: { onSubmit: (input: string) => void }) => {
             border: "none",
             fontSize: "1.2em",
             fontWeight: 900,
+            height: 21,
           }}
         ></textarea>
       </div>
@@ -118,6 +118,7 @@ export const Terminal = () => {
 
   const onTerminalSubmit = (input: string) => {
     const output = repl.eval(input);
+    console.log(repl);
     setHistory((history) => [...history, output]);
   };
 

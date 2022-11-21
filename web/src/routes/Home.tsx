@@ -3,6 +3,7 @@ import * as React from "react";
 import { SocialButtons } from "components/SocialButtons";
 import { Terminal } from "components/Terminal";
 import { AnimatedPfp } from "components/AnimatedPfp";
+import { Enochian } from "components/Enochian";
 
 export const Home = () => {
   return (
@@ -18,6 +19,10 @@ export const Home = () => {
 
       <div className="ui-box">
         <SocialButtons />
+      </div>
+
+      <div className="ui-box">
+        <Enochian />
       </div>
     </div>
   );

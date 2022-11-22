@@ -36,7 +36,7 @@ export const Enochian = () => {
       const syllable: string = enochianSounds[enochianLetter];
       outputArr.push(syllable);
     }
-    const output = outputArr.join("-");
+    const output = outputArr.join("");
     return output.replace("--", "\n");
   };
 
@@ -618,7 +618,7 @@ export const Enochian = () => {
     med: "O",
     don: "R",
     ceph: "Z",
-    van: "V",
+    van: "U",
     fam: "S",
     gisg: "T",
   };

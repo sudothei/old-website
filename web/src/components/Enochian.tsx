@@ -60,7 +60,7 @@ export const Enochian = () => {
         chart == "planet" ? planetMatrix[col][row] : zodiacMatrix[col][row];
       outputArr.push(outputLetter == undefined ? "space" : outputLetter);
     }
-    return outputArr;
+    return outputArr.reverse();
   };
 
   const englishToEnochian = (englishWord: string) => {

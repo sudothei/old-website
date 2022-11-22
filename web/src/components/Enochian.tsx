@@ -2,7 +2,9 @@ import * as React from "react";
 import { useEffect, useRef, useState } from "react";
 
 export const Enochian = () => {
-  const [selectedSign, setSelectedSign] = useState("sol");
+  const [selectedAstrological, setSelectedAstrological] = useState("sol");
+  const [enochianOutput, setEnochianOutput] = useState<string[]>([]);
+  const [pronounciation, setPronounciation] = useState("");
 
   const signs: { [key: string]: string } = {
     "♄": "saturn",
@@ -26,7 +28,7 @@ export const Enochian = () => {
     "♓︎": "pisces",
   };
 
-  const enochianPronounciation = (enochianName: string) => {
+  const enochianPronounciation = (enochianName: string[]) => {
     const inputArr = enochianName;
     const outputArr = [];
     for (let i = 0; i < inputArr.length; i++) {
@@ -34,17 +36,8 @@ export const Enochian = () => {
       const syllable: string = enochianSounds[enochianLetter];
       outputArr.push(syllable);
     }
-    return outputArr.join("-");
-  };
-
-  const nameToImages = (enochianName: any) => {
-    let output = "";
-    for (let i in enochianName) {
-      const letter = enochianName[i];
-      const image = `<img class="enochian-letter" src="enochian-letters/${letter}.png">`;
-      output = output + "\n" + image;
-    }
-    return output;
+    const output = outputArr.join("-");
+    return output.replace("--", "\n");
   };
 
   const enochianToName = (
@@ -65,7 +58,7 @@ export const Enochian = () => {
           : 20 - enochianOrder[inputLetter];
       const outputLetter =
         chart == "planet" ? planetMatrix[col][row] : zodiacMatrix[col][row];
-      outputArr.push(outputLetter);
+      outputArr.push(outputLetter == undefined ? "space" : outputLetter);
     }
     return outputArr;
   };
@@ -77,46 +70,6 @@ export const Enochian = () => {
       enochianWord = enochianWord + " " + englishToEnoch[englishLetter];
     }
     return enochianWord.trim();
-  };
-
-  const englishToHebrew = (englishWord: string) => {
-    let hebrewWord = "";
-
-    for (let i = 0; i < englishWord.length; i++) {
-      const letter: string = englishWord.substring(i, i + 1);
-      const secondLetter: string = englishWord.substring(i + 1, i + 2);
-      switch (secondLetter) {
-        case "h":
-          const listOfFirstLetters = ["d", "g", "p", "s", "c", "k", "t"];
-          if (listOfFirstLetters.includes(letter)) {
-            hebrewWord = hebrewWord + convertDoubles[letter + secondLetter];
-            i++;
-          } else {
-            hebrewWord = hebrewWord + convertSingles[letter];
-          }
-          break;
-        case "s":
-          if (letter == "t") {
-            hebrewWord = hebrewWord + convertDoubles[letter + secondLetter];
-            i++;
-          } else {
-            hebrewWord = hebrewWord + convertSingles[letter];
-          }
-          break;
-        case "z":
-          if (letter == "t") {
-            hebrewWord = hebrewWord + convertDoubles[letter + secondLetter];
-            i++;
-          } else {
-            hebrewWord = hebrewWord + convertSingles[letter];
-          }
-          break;
-        default:
-          hebrewWord = hebrewWord + convertSingles[letter];
-      }
-    }
-
-    return hebrewWord;
   };
 
   const planets: { [key: string]: number } = {
@@ -646,47 +599,6 @@ export const Enochian = () => {
     gisg: 20,
   };
 
-  const convertDoubles: { [key: string]: string } = {
-    dh: "ד",
-    gh: "ג",
-    ph: "פ",
-    sh: "ש",
-    ch: "ח",
-    kh: "ח",
-    th: "ת",
-    tz: "צ",
-    ts: "צ",
-  };
-  const convertSingles: { [key: string]: string } = {
-    a: "א",
-    b: "ב",
-    c: "כ",
-    d: "ד",
-    e: "א",
-    f: "פ",
-    g: "ג",
-    h: "ה",
-    i: "י",
-    j: "י",
-    k: "ח",
-    l: "ל",
-    m: "מ",
-    n: "נ",
-    o: "ו",
-    p: "פ",
-    q: "ק",
-    r: "ר",
-    s: "ס",
-    t: "ט",
-    u: "ו",
-    v: "ו",
-    w: "ו",
-    x: "ס",
-    y: "י",
-    z: "ז",
-    " ": "  ",
-  };
-
   const enochianSounds: { [key: string]: string } = {
     pa: "B",
     veh: "C",
@@ -713,7 +625,29 @@ export const Enochian = () => {
 
   let enochianInput = useRef<HTMLTextAreaElement>(null);
 
-  const autoResize = () => {
+  const renderEnochian = (astrological: string) => {
+    const inputText = enochianInput.current!.value;
+    const polarity = "good";
+    const chart = Object.keys(planets).includes(astrological)
+      ? "planet"
+      : "zodiac";
+
+    const enochianWord: string = englishToEnochian(inputText.toLowerCase());
+    const enochianName: string[] = enochianToName(
+      enochianWord,
+      chart,
+      astrological,
+      polarity
+    );
+    setEnochianOutput(enochianName);
+    const enochPronounciation = enochianPronounciation(enochianName);
+    setPronounciation(enochPronounciation);
+  };
+
+  const inputChanged = () => {
+    renderEnochian(selectedAstrological);
+
+    // handle resizing the textarea if needed
     if (typeof enochianInput != null) {
       enochianInput.current!.style.height = "auto";
       enochianInput.current!.style.height =
@@ -722,6 +656,7 @@ export const Enochian = () => {
   };
 
   useEffect(() => {
+    // handle resizing the textarea if needed
     enochianInput.current!.style.height = "auto";
     enochianInput.current!.style.height =
       enochianInput.current!.scrollHeight + "px";
@@ -736,7 +671,6 @@ export const Enochian = () => {
         alignItems: "center",
       }}
     >
-      <h2>Enochian Name Generator</h2>
       <div className="ui-box" style={{ width: 500 }}>
         <div
           style={{
@@ -757,7 +691,7 @@ export const Enochian = () => {
           <textarea
             rows={1}
             ref={enochianInput}
-            onChange={autoResize}
+            onChange={inputChanged}
             style={{
               background: "transparent",
               color: "#0f0",
@@ -783,17 +717,35 @@ export const Enochian = () => {
       >
         {Object.keys(signs).map((sign: string) => (
           <div
+            key={signs[sign]}
             className={
-              selectedSign == signs[sign] ? "symbol-btn-selected" : "symbol-btn"
+              selectedAstrological == signs[sign]
+                ? "symbol-btn-selected"
+                : "symbol-btn"
             }
             onClick={() => {
-              setSelectedSign(signs[sign]);
+              setSelectedAstrological(signs[sign]);
+              renderEnochian(signs[sign]);
             }}
           >
             {sign}
           </div>
         ))}
       </div>
+      <div>
+        {enochianOutput.map((letter: string, index: number) =>
+          letter == "space" ? (
+            <br key={letter + index} />
+          ) : (
+            <img
+              key={letter + index}
+              className="enochian-letter"
+              src={"enochian-letters/" + letter + ".webp"}
+            />
+          )
+        )}
+      </div>
+      {pronounciation}
     </div>
   );
 };

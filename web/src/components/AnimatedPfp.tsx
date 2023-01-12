@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as pfpImage from "static/media/lipfp.webp";
+import * as pfpImage from "static/media/pfp.webp";
 import { useEffect } from "react";
 import { BayerDither } from "./BayerDither";
 
@@ -44,8 +44,9 @@ export const AnimatedPfp = () => {
           pixelSize={1}
           image={pfpImage}
           height={300}
-          colorB={[0, 255, 0, 255]}
-          colorA={[0, 0, 0, 0]}
+          width={300}
+          colorB={[0,0,0,0]}
+          colorA={[0,255,0,255]}
         />
       </div>
       <div className="pfp-image">
@@ -53,8 +54,9 @@ export const AnimatedPfp = () => {
           pixelSize={2}
           image={pfpImage}
           height={300}
-          colorB={[0, 255, 0, 255]}
-          colorA={[0, 0, 0, 0]}
+          width={300}
+          colorB={[0,0,0,0]}
+          colorA={[0,255,0,255]}
         />
       </div>
       <div className="pfp-image">
@@ -62,8 +64,9 @@ export const AnimatedPfp = () => {
           pixelSize={4}
           image={pfpImage}
           height={300}
-          colorB={[0, 255, 0, 255]}
-          colorA={[0, 0, 0, 0]}
+          width={300}
+          colorB={[0,0,0,0]}
+          colorA={[0,255,0,255]}
         />
       </div>
       <div className="pfp-image">
@@ -71,8 +74,9 @@ export const AnimatedPfp = () => {
           pixelSize={8}
           image={pfpImage}
           height={300}
-          colorB={[0, 255, 0, 255]}
-          colorA={[0, 0, 0, 0]}
+          width={300}
+          colorB={[0,0,0,0]}
+          colorA={[0,255,0,255]}
         />
       </div>
       <div className="pfp-image">
@@ -80,8 +84,9 @@ export const AnimatedPfp = () => {
           pixelSize={16}
           image={pfpImage}
           height={300}
-          colorB={[0, 255, 0, 255]}
-          colorA={[0, 0, 0, 0]}
+          width={300}
+          colorB={[0,0,0,0]}
+          colorA={[0,255,0,255]}
         />
       </div>
     </div>

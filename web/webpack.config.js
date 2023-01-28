@@ -13,6 +13,7 @@ module.exports = (env) => {
   }, {});
 
   return {
+    devtool: "eval-cheap-source-map",
     output: {
       path: path.resolve(__dirname, "build"),
       filename: "bundle.js",
@@ -52,5 +53,8 @@ module.exports = (env) => {
       }),
       new webpack.DefinePlugin(envKeys),
     ],
+    devServer: {
+      historyApiFallback: true,
+    },
   };
 };

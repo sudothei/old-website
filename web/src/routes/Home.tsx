@@ -4,8 +4,9 @@ import { SocialButtons } from "components/SocialButtons";
 import { Terminal } from "components/Terminal";
 import { AnimatedPfp } from "components/AnimatedPfp";
 import { Enochian } from "components/Enochian";
+import { LoadingBar } from "components/LoadingBar";
 
-export const Home = () => {
+const App = () => {
   return (
     <div className="container">
       {/*
@@ -24,6 +25,17 @@ export const Home = () => {
       <div className="ui-box">
         <Enochian />
       </div>
+    </div>
+  );
+};
+
+export const Home = () => {
+  return (
+    <div className="App">
+      <LoadingBar />
+      <App />
+      <div className="border-corners"></div>
+      <div className="border-edges"></div>
     </div>
   );
 };

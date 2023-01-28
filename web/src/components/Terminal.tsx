@@ -1,6 +1,8 @@
 import * as React from "react";
 import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import init, { Repl } from "../helpers/sudothei-lisp/pkg/sudothei_lisp.js";
+import Command from "../types/Command";
 
 const TerminalOutput = (props: { output: string }) => {
   const { output } = props;
@@ -48,8 +50,13 @@ const TerminalInput = (props: { onSubmit: (input: string) => void }) => {
     };
 
     terminalInput.current!.addEventListener("keydown", handleEnter);
-    return () =>
-      terminalInput.current!.removeEventListener("keydown", handleEnter);
+    return () => {
+      try {
+        terminalInput.current!.removeEventListener("keydown", handleEnter);
+      } catch {
+        return;
+      }
+    };
   }, []);
 
   return (
@@ -90,7 +97,7 @@ const TerminalInput = (props: { onSubmit: (input: string) => void }) => {
 };
 
 export const Terminal = () => {
-  const titleArt =
+  const lispArt: string =
     window.innerWidth < 700
       ? "Sudothei Lisp Interpreter"
       : `
@@ -107,7 +114,28 @@ export const Terminal = () => {
 │  │└─┐├─┘  ││││ │ ├┤ ├┬┘├─┘├┬┘├┤  │ ├┤ ├┬┘
 ┴─┘┴└─┘┴    ┴┘└┘ ┴ └─┘┴└─┴  ┴└─└─┘ ┴ └─┘┴└─
 `;
-  const [history, setHistory] = useState<(string | number)[]>([titleArt]);
+  const titleArt: string =
+    window.innerWidth < 700
+      ? "Sudothei Command Line Interface"
+      : `
+  ██████  █    ██ ▓█████▄  ▒█████  ▄▄▄█████▓ ██░ ██ ▓█████  ██▓
+▒██    ▒  ██  ▓██▒▒██▀ ██▌▒██▒  ██▒▓  ██▒ ▓▒▓██░ ██▒▓█   ▀ ▓██▒
+░ ▓██▄   ▓██  ▒██░░██   █▌▒██░  ██▒▒ ▓██░ ▒░▒██▀▀██░▒███   ▒██▒
+  ▒   ██▒▓▓█  ░██░░▓█▄   ▌▒██   ██░░ ▓██▓ ░ ░▓█ ░██ ▒▓█  ▄ ░██░
+▒██████▒▒▒▒█████▓ ░▒████▓ ░ ████▓▒░  ▒██▒ ░ ░▓█▒░██▓░▒████▒░██░
+▒ ▒▓▒ ▒ ░░▒▓▒ ▒ ▒  ▒▒▓  ▒ ░ ▒░▒░▒░   ▒ ░░    ▒ ░░▒░▒░░ ▒░ ░░▓  
+░ ░▒  ░ ░░░▒░ ░ ░  ░ ▒  ▒   ░ ▒ ▒░     ░     ▒ ░▒░ ░ ░ ░  ░ ▒ ░
+░  ░  ░   ░░░ ░ ░  ░ ░  ░ ░ ░ ░ ▒    ░       ░  ░░ ░   ░    ▒ ░
+      ░     ░        ░        ░ ░            ░  ░  ░   ░  ░ ░  
+┌─┐┌─┐┌┬┐┌┬┐┌─┐┌┐┌┌┬┐  ┬  ┬┌┐┌┌─┐  ┬┌┐┌┌┬┐┌─┐┬─┐┌─┐┌─┐┌─┐┌─┐
+│  │ │││││││├─┤│││ ││  │  ││││├┤   ││││ │ ├┤ ├┬┘├┤ ├─┤│  ├┤ 
+└─┘└─┘┴ ┴┴ ┴┴ ┴┘└┘─┴┘  ┴─┘┴┘└┘└─┘  ┴┘└┘ ┴ └─┘┴└─└  ┴ ┴└─┘└─┘
+
+Type "help" for commands.
+`;
+  const [history, setHistory] = useState<string[]>([titleArt]);
+  const navigate = useNavigate();
+  let program = "cli";
 
   let repl: any;
 
@@ -117,9 +145,68 @@ export const Terminal = () => {
   })();
 
   const onTerminalSubmit = (input: string) => {
-    const output = repl.eval(input);
-    console.log(repl);
-    setHistory((history) => [...history, output]);
+    const validCommands: Command[] = [
+      {
+        command: "help",
+        description: "Displays this help menu.",
+      },
+      {
+        command: "impress me",
+        description: "(WIP) Have you heard of demoscene?",
+      },
+      {
+        command: "lisp",
+        description: "(WIP) A Lisp interpreter written in Rust for WASM.",
+      },
+      {
+        command: "clear",
+        description: "Clear the terminal.",
+      },
+    ];
+    let output: string = "";
+
+    if (
+      validCommands.map((x) => x.command).includes(input) &&
+      program === "cli"
+    ) {
+      switch (input) {
+        case "help":
+          const helpLines = validCommands.map(
+            (x) => `${x.command} - ${x.description}`
+          );
+          output = "\n" + helpLines.join("\n");
+          break;
+        case "lisp":
+          program = "lisp";
+          output = lispArt;
+          break;
+        case "impress me":
+          document.documentElement.requestFullscreen();
+          navigate("/demo");
+          break;
+        case "clear":
+          setHistory([""]);
+          break;
+      }
+    } else if (program === "lisp") {
+      if (input == "exit") {
+        program = "cli";
+        output = titleArt;
+      } else {
+        output = repl.eval(input);
+        console.log(repl);
+      }
+    } else {
+      output = `"${input}" is not a vald command, try "help"`;
+    }
+
+    if (input != "clear") {
+      setHistory((history) => [
+        ...history,
+        `\n$ user@sudothei: ${input}`,
+        output,
+      ]);
+    }
   };
 
   return (

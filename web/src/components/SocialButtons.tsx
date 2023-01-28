@@ -5,6 +5,7 @@ import {
   faTwitter,
   faLinkedin,
   faGithub,
+  faMastodon
 } from "@fortawesome/free-brands-svg-icons";
 
 library.add(faTwitter, faLinkedin, faGithub);
@@ -19,7 +20,7 @@ export const SocialButtons = () => {
     >
       <div className="ui-box" style={{ width: "auto" }}>
         <a
-          href="http://twitter.com/sudothei"
+          href="https://twitter.com/sudothei"
           target="blank"
           style={{ padding: "0.5em" }}
         >
@@ -28,7 +29,7 @@ export const SocialButtons = () => {
       </div>
       <div className="ui-box" style={{ width: "auto" }}>
         <a
-          href="http://linkedin.com/in/paigevenuto"
+          href="https://linkedin.com/in/paigevenuto"
           target="blank"
           style={{ padding: "0.5em" }}
         >
@@ -37,11 +38,20 @@ export const SocialButtons = () => {
       </div>
       <div className="ui-box" style={{ width: "auto" }}>
         <a
-          href="http://github.com/sudothei"
+          href="https://github.com/sudothei"
           target="blank"
           style={{ padding: "0.5em" }}
         >
           <FontAwesomeIcon icon={faGithub} size="lg" /> GitHub
+        </a>
+      </div>
+      <div className="ui-box" style={{ width: "auto" }}>
+        <a
+          href="https://mstdn.sudothei.io"
+          target="blank"
+          style={{ padding: "0.5em" }}
+        >
+          <FontAwesomeIcon icon={faMastodon} size="lg" /> Mastodon
         </a>
       </div>
     </div>

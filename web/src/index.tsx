@@ -3,8 +3,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { createRoot } from "react-dom/client";
 
 import "static/index.css";
-import { Home } from "./routes/Home";
-import { Demo } from "./routes/Demo";
+import { Home } from "./routes/home/Home";
+import { Demo } from "./routes/demo/Demo";
+import { Gematria } from "./routes/gematria/Gematria";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
@@ -15,6 +16,7 @@ root.render(
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/demo" element={<Demo />}></Route>
+        <Route path="/gematria" element={<Gematria />}></Route>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

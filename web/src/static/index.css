@@ -134,6 +134,43 @@ pre {
     font-size: 1.2em !important;
 }
 
+.tanakh-filter {
+    font-family: monospace;
+    background: transparent;
+    color: #0f0;
+    font-size: 2em;
+    font-weight: 900;
+    border: 3px solid #0f0;
+    padding: .2em;
+    margin: .4em;
+    width: fit-content;
+    text-align: center;
+}
+
+input[type=number] {
+    width: 3em;
+    text-align: center;
+}
+
+input[type="number"] {
+  -webkit-appearance: textfield;
+     -moz-appearance: textfield;
+          appearance: textfield;
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none;
+}
+
+.tanakh-filter * {
+    background-color: black;
+}
+
+option:checked {
+    background-color: #0f0;
+    color: black;
+}
+
 *:focus {
     outline: none;
 }

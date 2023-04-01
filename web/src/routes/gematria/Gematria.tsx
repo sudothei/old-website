@@ -56,71 +56,108 @@ const App = () => {
   const [currentSidra, setCurrentSidra] = useState<number>(1);
 
   return (
-    <div className="container">
-      <div>
-        <select
-          value={currentSection}
-          className="tanakh-filter"
-          onChange={(evt) => {
-            setCurrentSection(evt.target.value);
-            setCurrentBook(sections[evt.target.value][0]);
-            setCurrentParsha(1);
-            setCurrentSidra(1);
+    <div className="container" style={{ justifyContent: "start" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          width: "66%",
+          margin: "1em",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
           }}
         >
-          {Object.keys(sections).map((section) => (
-            <option value={section}>{section}</option>
-          ))}
-        </select>
+          <select
+            value={currentSection}
+            className="tanakh-filter"
+            onChange={(evt) => {
+              setCurrentSection(evt.target.value);
+              setCurrentBook(sections[evt.target.value][0]);
+              setCurrentParsha(1);
+              setCurrentSidra(1);
+            }}
+          >
+            {Object.keys(sections).map((section) => (
+              <option value={section}>{section}</option>
+            ))}
+          </select>
 
-        <select
-          className="tanakh-filter"
-          value={currentBook}
-          onChange={(evt) => {
-            setCurrentBook(evt.target.value);
-            setCurrentParsha(1);
-            setCurrentSidra(1);
+          <select
+            className="tanakh-filter"
+            value={currentBook}
+            onChange={(evt) => {
+              setCurrentBook(evt.target.value);
+              setCurrentParsha(1);
+              setCurrentSidra(1);
+            }}
+          >
+            {sections[currentSection].map((book: string) => (
+              <option value={book}>{book}</option>
+            ))}
+          </select>
+
+          <input
+            className="tanakh-filter"
+            value={currentParsha}
+            type="number"
+            onChange={(evt) => setCurrentParsha(toInteger(evt.target.value))}
+            min="1"
+            max={Tanakh_English[currentSection][currentBook].length}
+          ></input>
+          <input
+            className="tanakh-filter"
+            value={currentSidra}
+            type="number"
+            onChange={(evt) => setCurrentSidra(toInteger(evt.target.value))}
+            min="1"
+            max={
+              Tanakh_English[currentSection][currentBook][currentParsha - 1]
+                .length
+            }
+          ></input>
+        </div>
+
+        <div
+          className="ui-box"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            width: "100%",
           }}
         >
-          {sections[currentSection].map((book: string) => (
-            <option value={book}>{book}</option>
-          ))}
-        </select>
-
-        <input
-          className="tanakh-filter"
-          value={currentParsha}
-          type="number"
-          onChange={(evt) => setCurrentParsha(toInteger(evt.target.value))}
-          min="1"
-          max={Tanakh_English[currentSection][currentBook].length}
-        ></input>
-        <input
-          className="tanakh-filter"
-          value={currentSidra}
-          type="number"
-          onChange={(evt) => setCurrentSidra(toInteger(evt.target.value))}
-          min="1"
-          max={
-            Tanakh_English[currentSection][currentBook][currentParsha - 1]
-              .length
-          }
-        ></input>
-      </div>
-
-      <div>
-        <p>
-          {
-            Tanakh_Hebrew[currentSection][currentBook][currentParsha - 1][
-              currentSidra - 1
-            ]
-          }
-          {
-            Tanakh_English[currentSection][currentBook][currentParsha - 1][
-              currentSidra - 1
-            ]
-          }
-        </p>
+          <div
+            style={{
+              fontSize: "3em",
+              display: "flex",
+              direction: "rtl",
+              textAlign: "right",
+              unicodeBidi: "bidi-override",
+            }}
+          >
+            {
+              Tanakh_Hebrew[currentSection][currentBook][currentParsha - 1][
+                currentSidra - 1
+              ]
+            }
+          </div>
+          <div
+            style={{
+              fontSize: "1.5em",
+              display: "flex",
+              alignSelf: "end",
+              textAlign: "end",
+            }}
+          >
+            {
+              Tanakh_English[currentSection][currentBook][currentParsha - 1][
+                currentSidra - 1
+              ]
+            }
+          </div>
+        </div>
       </div>
     </div>
   );

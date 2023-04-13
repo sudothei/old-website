@@ -171,6 +171,10 @@ option:checked {
     color: black;
 }
 
+li::marker {
+    content: '';
+}
+
 *:focus {
     outline: none;
 }

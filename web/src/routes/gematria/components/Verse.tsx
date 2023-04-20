@@ -1,6 +1,10 @@
 import * as React from "react";
 
-export const Verse = (props: { heb: string; eng: string; sidra: number }) => {
+export const Verse = (props: {
+  heb: string;
+  eng: string;
+  smalltext: string;
+}) => {
   return (
     <div
       className="ui-box"
@@ -42,7 +46,7 @@ export const Verse = (props: { heb: string; eng: string; sidra: number }) => {
         </div>
       </div>
       <div style={{ width: "3em", display: "flex", justifyContent: "center" }}>
-        {props.sidra}
+        {props.smalltext}
       </div>
     </div>
   );

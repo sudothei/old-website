@@ -1,5 +1,17 @@
+// TODO map matches !//>
+// TODO english or hebrew into total input searches
+// TODO Search / Browse
+// TODO Search Verse / Search Value
+// TODO Palindromes
+// TODO Primes
+// TODO Count appearances of searched words
+// TODO Show Gematria of searched word somehow
+// TODO Search appearances
+// TODO single asterisk in search box means any number
+// TODO regex matching for words
+
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { LoadingBar } from "components/LoadingBar";
 import { toInteger } from "lodash";
 import { Verse } from "./components/Verse";
@@ -7,17 +19,7 @@ import { Verse } from "./components/Verse";
 const Tanakh_English = require("./Tanakh_English.json");
 const Tanakh_Hebrew = require("./Tabakh_Hebrew.json");
 const Tanakh_Gematria = require("./Tanakh_Gematria.json");
-//const Words_Gematria = require("./Words_Gematria.json");
-const dict = require("./dict-he-en.json");
-
-//const translate = (word: string) => {
-//const eng_arr = dict.find((x: any) => x["translated"] == word);
-//if (eng_arr) {
-//return eng_arr.translation.join(", ") + "";
-//} else {
-//return "";
-//}
-//};
+const Dictionary = require("./Dictionary.json");
 
 const sections: any = {
   Torah: ["Genesis", "Exodus", "Leviticus", "Numbers", "Deuteronomy"],
@@ -66,15 +68,44 @@ const App = () => {
   const [currentBook, setCurrentBook] = useState<string>("Genesis");
   const [currentParsha, setCurrentParsha] = useState<number>(1);
   const [currentSidra, setCurrentSidra] = useState<number>(1);
+  const [currentValue, setCurrentValue] = useState<string>("2701");
+
+  useEffect(() => {
+    setCurrentBook(sections[currentSection][0]);
+  }, [currentSection]);
+
+  useEffect(() => {
+    setCurrentParsha(1);
+  }, [currentBook]);
+
+  useEffect(() => {
+    setCurrentSidra(1);
+  }, [currentParsha]);
+
+  useEffect(() => {
+    if (currentSidra != 0 && currentParsha != 0) {
+      setCurrentValue(
+        Tanakh_Gematria[currentSection][currentBook][currentParsha - 1][
+          currentSidra - 1
+        ]
+      );
+    } else {
+      setCurrentValue("");
+    }
+  }, [currentSection, currentBook, currentParsha, currentSidra]);
 
   return (
-    <div className="container" style={{ justifyContent: "start" }}>
+    <div
+      className="container"
+      style={{ justifyContent: "start", minHeight: "calc(100vh - 4em)" }}
+    >
       <div
         style={{
           display: "flex",
           flexDirection: "column",
           width: "100%",
           margin: "1em",
+          minHeight: "100%",
         }}
       >
         <div
@@ -88,8 +119,6 @@ const App = () => {
             onChange={(evt) => {
               setCurrentSection(evt.target.value);
               setCurrentBook(sections[evt.target.value][0]);
-              setCurrentParsha(1);
-              setCurrentSidra(1);
             }}
           >
             {Object.keys(sections).map((section) => (
@@ -101,8 +130,6 @@ const App = () => {
             value={currentBook}
             onChange={(evt) => {
               setCurrentBook(evt.target.value);
-              setCurrentParsha(1);
-              setCurrentSidra(1);
             }}
           >
             {sections[currentSection].map((book: string) => (
@@ -111,11 +138,19 @@ const App = () => {
           </select>
           <input
             className="tanakh-filter"
+            id="parsha"
             value={currentParsha}
             type="number"
             onChange={(evt) => {
-              setCurrentParsha(toInteger(evt.target.value));
-              setCurrentSidra(1);
+              if (
+                evt.target.value != "" &&
+                evt.target.value <=
+                  Tanakh_English[currentSection][currentBook].length
+              ) {
+                setCurrentParsha(toInteger(evt.target.value));
+              } else if (evt.target.value == "") {
+                setCurrentParsha(0);
+              }
             }}
             min="1"
             max={Tanakh_English[currentSection][currentBook].length}
@@ -130,11 +165,23 @@ const App = () => {
             className="tanakh-filter"
             value={currentSidra}
             type="number"
-            onChange={(evt) => setCurrentSidra(toInteger(evt.target.value))}
+            onChange={(evt) => {
+              if (
+                evt.target.value != "" &&
+                evt.target.value <=
+                  Tanakh_English[currentSection][currentBook].length
+              ) {
+                setCurrentSidra(toInteger(evt.target.value));
+              } else if (evt.target.value == "") {
+                setCurrentSidra(0);
+              }
+            }}
             min="1"
             max={
-              Tanakh_English[currentSection][currentBook][currentParsha - 1]
-                .length
+              currentParsha != 0
+                ? Tanakh_English[currentSection][currentBook][currentParsha - 1]
+                    .length
+                : 2
             }
           ></input>
           <span
@@ -145,55 +192,62 @@ const App = () => {
           </span>
           <input
             className="tanakh-filter"
-            value={
-              Tanakh_Gematria[currentSection][currentBook][currentParsha - 1][
-                currentSidra - 1
-              ]
-            }
-            type="number"
+            value={currentValue}
+            placeholder="Search"
+            title="Try regex or an asterisk!"
           ></input>
+          <div className="tanakh-filter" onClick={() => setCurrentSidra(0)}>
+            Help
+          </div>
         </div>
 
-        <div style={{ display: "flex", flexDirection: "row" }}>
-          <Verse
-            heb={
-              Tanakh_Hebrew[currentSection][currentBook][currentParsha - 1][
-                currentSidra - 1
-              ]
+        {currentParsha != 0 && currentSidra != 0 ? (
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            {currentSidra != 0 && currentParsha != 0 ? (
+              <Verse
+                heb={
+                  Tanakh_Hebrew[currentSection][currentBook][currentParsha - 1][
+                    currentSidra - 1
+                  ]
+                }
+                eng={
+                  Tanakh_English[currentSection][currentBook][
+                    currentParsha - 1
+                  ][currentSidra - 1]
+                }
+                smalltext={`${currentSidra}`}
+              />
+            ) : (
+              ""
+            )}
+            {
+              // TODO map matches !//>
             }
-            eng={
-              Tanakh_English[currentSection][currentBook][currentParsha - 1][
-                currentSidra - 1
-              ]
-            }
-            sidra={currentSidra}
-          />
-          <div
-            style={{
-              width: "33%",
-              fontFamily: "Syne Mono",
-              border: "3px solid #0f0",
-              margin: "0.5em",
-            }}
-          >
-            <p style={{ marginBottom: 0, fontSize: "2em", margin: 0 }}>
-              Matching Words:
-            </p>
+
             <div
               style={{
-                boxSizing: "border-box",
+                width: "33%",
+                fontFamily: "Syne Mono",
+                border: "3px solid #0f0",
+                margin: "0.5em",
               }}
             >
-              <ul>
-                {dict
-                  .filter(
-                    (x: { translated: string; value: number }) =>
+              <p style={{ marginBottom: 0, fontSize: "2em", margin: 0 }}>
+                Matching Words:
+              </p>
+              <div
+                style={{
+                  boxSizing: "border-box",
+                }}
+              >
+                <ul>
+                  {Dictionary.filter(
+                    (x: { word: string; value: number }) =>
                       x.value ==
                       Tanakh_Gematria[currentSection][currentBook][
                         currentParsha - 1
                       ][currentSidra - 1]
-                  )
-                  .map((x: any) => (
+                  ).map((x: any) => (
                     <li
                       style={{
                         marginRight: "1.5em",
@@ -207,7 +261,7 @@ const App = () => {
                           unicodeBidi: "bidi-override",
                         }}
                       >
-                        {x.translated}
+                        {x.word}
                       </span>
                       <span
                         style={{
@@ -219,10 +273,22 @@ const App = () => {
                       </span>
                     </li>
                   ))}
-              </ul>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <div
+            style={{
+              display: "flex",
+              height: "100%",
+              alignItems: "center",
+              margin: "auto",
+            }}
+          >
+            <p style={{ fontSize: "3em" }}>Help Menu</p>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -147,6 +147,17 @@ pre {
     text-align: center;
 }
 
+.gematria-word {
+    margin-right: 1.5em;
+    font-size: 1.5em;
+    padding-bottom: 1em;
+}
+
+.gematria-word:hover {
+    background: #0f0;
+    color: black;
+}
+
 input[type=number] {
     width: 3em;
     text-align: center;

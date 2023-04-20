@@ -97,7 +97,7 @@ const App = () => {
   return (
     <div
       className="container"
-      style={{ justifyContent: "start", minHeight: "calc(100vh - 4em)" }}
+      style={{ justifyContent: "start", height: "calc(100vh - 4em)" }}
     >
       <div
         style={{
@@ -105,7 +105,7 @@ const App = () => {
           flexDirection: "column",
           width: "100%",
           margin: "1em",
-          minHeight: "100%",
+          height: "calc(100% - 4em)",
         }}
       >
         <div
@@ -196,13 +196,24 @@ const App = () => {
             placeholder="Search"
             title="Try regex or an asterisk!"
           ></input>
-          <div className="tanakh-filter" onClick={() => setCurrentSidra(0)}>
+          <div
+            style={{ cursor: "pointer" }}
+            className="tanakh-filter"
+            onClick={() => setCurrentSidra(0)}
+          >
             Help
           </div>
         </div>
 
         {currentParsha != 0 && currentSidra != 0 ? (
-          <div style={{ display: "flex", flexDirection: "row" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              height: "100%",
+              minHeight: "100%",
+            }}
+          >
             {currentSidra != 0 && currentParsha != 0 ? (
               <Verse
                 heb={
@@ -230,50 +241,50 @@ const App = () => {
                 fontFamily: "Syne Mono",
                 border: "3px solid #0f0",
                 margin: "0.5em",
+                overflowY: "scroll",
               }}
             >
-              <p style={{ marginBottom: 0, fontSize: "2em", margin: 0 }}>
-                Matching Words:
-              </p>
               <div
                 style={{
-                  boxSizing: "border-box",
+                  display: "flex",
+                  flexDirection: "column",
                 }}
               >
-                <ul>
-                  {Dictionary.filter(
-                    (x: { word: string; value: number }) =>
-                      x.value ==
-                      Tanakh_Gematria[currentSection][currentBook][
-                        currentParsha - 1
-                      ][currentSidra - 1]
-                  ).map((x: any) => (
-                    <li
-                      style={{
-                        marginRight: "1.5em",
-                        fontSize: "2em",
-                      }}
-                    >
-                      <span
-                        style={{
-                          direction: "rtl",
-                          textAlign: "right",
-                          unicodeBidi: "bidi-override",
-                        }}
-                      >
-                        {x.word}
-                      </span>
-                      <span
-                        style={{
-                          direction: "ltr",
-                          textAlign: "left",
-                        }}
-                      >
-                        {" = " + x.translation}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
+                <div
+                  style={{
+                    wordWrap: "break-word",
+                  }}
+                >
+                  <ul>
+                    {Dictionary.filter(
+                      (x: { word: string; value: number }) =>
+                        x.value ==
+                        Tanakh_Gematria[currentSection][currentBook][
+                          currentParsha - 1
+                        ][currentSidra - 1]
+                    ).map((x: any) => (
+                      <li className="gematria-word">
+                        <span
+                          style={{
+                            direction: "rtl",
+                            textAlign: "right",
+                            unicodeBidi: "bidi-override",
+                          }}
+                        >
+                          {x.word}
+                        </span>
+                        <span
+                          style={{
+                            direction: "ltr",
+                            textAlign: "left",
+                          }}
+                        >
+                          {" = " + x.translation}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </div>
           </div>

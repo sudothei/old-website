@@ -147,6 +147,11 @@ pre {
     text-align: center;
 }
 
+select.tanakh-filter:focus, input.tanakh-filter:focus {
+    background-color: #0f0;
+    color: black;
+}
+
 .gematria-word {
     margin-right: 1.5em;
     font-size: 1.5em;
@@ -171,15 +176,12 @@ input[type="number"] {
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
   -webkit-appearance: none;
+  appearance: none;
 }
 
-.tanakh-filter * {
+select.tanakh-filter * {
     background-color: black;
-}
-
-option:checked {
-    background-color: #0f0;
-    color: black;
+    color: #0f0
 }
 
 li::marker {

@@ -7,46 +7,44 @@ export const Verse = (props: {
 }) => {
   return (
     <div
-      className="ui-box"
       style={{
         display: "flex",
-        width: "66%",
         flexDirection: "column",
-        flexFlow: "nowrap",
+        flexFlow: "column",
         padding: ".5em",
         justifyContent: "right",
+        marginBottom: "1.5em",
       }}
     >
       <div
         style={{
+          fontSize: "1em",
           display: "flex",
-          flexDirection: "column",
+          justifyContent: "right",
         }}
       >
-        <div
-          style={{
-            fontSize: "3em",
-            display: "flex",
-            direction: "rtl",
-            textAlign: "right",
-            unicodeBidi: "bidi-override",
-          }}
-        >
-          {props.heb}
-        </div>
-        <div
-          style={{
-            fontSize: "1.5em",
-            display: "flex",
-            alignSelf: "end",
-            textAlign: "end",
-          }}
-        >
-          {props.eng}
-        </div>
-      </div>
-      <div style={{ width: "3em", display: "flex", justifyContent: "center" }}>
         {props.smalltext}
+      </div>
+      <div
+        style={{
+          fontSize: "3em",
+          display: "flex",
+          direction: "rtl",
+          textAlign: "right",
+          unicodeBidi: "bidi-override",
+        }}
+      >
+        {props.heb}
+      </div>
+      <div
+        style={{
+          fontSize: "1.5em",
+          display: "flex",
+          alignSelf: "end",
+          textAlign: "end",
+        }}
+      >
+        {props.eng}
       </div>
     </div>
   );

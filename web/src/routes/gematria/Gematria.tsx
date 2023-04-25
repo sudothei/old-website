@@ -73,6 +73,7 @@ const App = () => {
     { word: string; translation: string; value: number }[]
   >([]);
   const [searchMode, setSearchMode] = useState<boolean>(false);
+  const [searchWord, setSearchWord] = useState<string>("");
   const [currentMatches, setCurrentMatches] = useState<any[]>([]);
 
   useEffect(() => {
@@ -91,6 +92,7 @@ const App = () => {
             ]
         )
       );
+      setCurrentMatches(getMatches(currentValue));
     } else {
       setCurrentValue("");
     }
@@ -100,29 +102,76 @@ const App = () => {
     setCurrentMatches(getMatches(currentValue));
   }, [currentValue]);
 
-  useEffect(() => {
-    setCurrentMatches(getMatches(currentValue));
-  }, []);
-
   const handleSearch = (evt: any) => {
     if (evt.key == "Enter") {
       const term: string = evt.target.value;
       setCurrentValue(term);
       if (toInteger(term) != 0) {
+        setCurrentValue(toInteger(term).toString());
         setSearchMode(true);
+        const matches = Dictionary.filter((x: any) => {
+          return x.value === toInteger(term);
+        });
+        setCurrentWords(matches);
       } else {
         const matches = Dictionary.filter((x: any) => {
           const word: string = `${x.translation}`;
           return word.toLowerCase().includes(term.toLowerCase());
         });
+        setSearchWord(term);
         setCurrentWords(matches);
       }
     }
   };
 
+  const calculateGematria = (word: string): number => {
+    const gematriaTable: { [key: string]: number } = {
+      א: 1,
+      ב: 2,
+      ג: 3,
+      ד: 4,
+      ה: 5,
+      ו: 6,
+      ז: 7,
+      ח: 8,
+      ט: 9,
+      י: 10,
+      כ: 20,
+      ל: 30,
+      מ: 40,
+      נ: 50,
+      ס: 60,
+      ע: 70,
+      פ: 80,
+      צ: 90,
+      ק: 100,
+      ר: 200,
+      ש: 300,
+      ת: 400,
+    };
+
+    let gematriaValue = 0;
+
+    for (let i = 0; i < word.length; i++) {
+      const letter = word[i];
+      if (gematriaTable.hasOwnProperty(letter)) {
+        gematriaValue += gematriaTable[letter];
+      }
+    }
+
+    return gematriaValue;
+  };
+
   const getMatches = (term: string) => {
     if (term in Verses_Gematria) {
-      const verses = Verses_Gematria[term];
+      const versesEng = Verses_Gematria[term];
+      const versesHeb = Verses_Gematria[`${calculateGematria(term)}`];
+      let verses;
+      if (typeof versesHeb != "undefined") {
+        verses = [...versesEng, ...versesHeb];
+      } else {
+        verses = versesEng;
+      }
       if (!searchMode) {
         return verses.filter(
           (x: any) =>
@@ -346,7 +395,8 @@ const App = () => {
               if (
                 evt.target.value != "" &&
                 evt.target.value <=
-                  Tanakh_English[currentSection][currentBook].length
+                  Tanakh_English[currentSection][currentBook][currentParsha - 1]
+                    .length
               ) {
                 setCurrentSidra(toInteger(evt.target.value));
               } else if (evt.target.value == "") {
@@ -358,7 +408,7 @@ const App = () => {
               currentParsha != 0
                 ? Tanakh_English[currentSection][currentBook][currentParsha - 1]
                     .length
-                : 2
+                : 0
             }
           ></input>
           <span
@@ -410,6 +460,7 @@ const App = () => {
                   style={{ border: "3px solid #0f0", marginBottom: "1.5em" }}
                 >
                   <Verse
+                    onClick={null}
                     heb={
                       Tanakh_Hebrew[currentSection][currentBook][
                         currentParsha - 1
@@ -440,6 +491,14 @@ const App = () => {
                         verse["parsha"] - 1
                       ][verse["sidra"] - 1]
                     }
+                    onClick={() => {
+                      setCurrentSection(verse["section"]);
+                      setCurrentBook(verse["book"]);
+                      setCurrentParsha(verse["parsha"]);
+                      setCurrentSidra(verse["sidra"]);
+                      setSearchMode(false);
+                      setCurrentMatches(getMatches(currentValue));
+                    }}
                     smalltext={`${verse["section"]} ${verse["book"]} ${verse["parsha"]}:${verse["sidra"]}`}
                   />
                 );
@@ -467,27 +526,48 @@ const App = () => {
                   }}
                 >
                   <ul>
-                    {currentWords.map((x: any, i: number) => (
-                      <li className="gematria-word" key={"word-" + i}>
-                        <span
-                          style={{
-                            direction: "rtl",
-                            textAlign: "right",
-                            unicodeBidi: "bidi-override",
+                    {currentWords
+                      .sort((x: any, y: any) => x.value - y.value)
+                      .sort((x: any) => {
+                        return x.translation[0] == searchWord ? 1 : -1;
+                      })
+                      .filter((x: any) => x.value in Verses_Gematria)
+                      .reverse()
+                      .map((x: any, i: number) => (
+                        <li
+                          className="gematria-word"
+                          key={"word-" + i}
+                          id={"word-" + i}
+                          onClick={() => {
+                            setCurrentValue(x.value);
+                            setSearchMode(true);
+                            document
+                              .querySelector(".gematria-word-selected")
+                              ?.classList.remove("gematria-word-selected");
+                            document
+                              .getElementById("word-" + i)
+                              ?.classList.add("gematria-word-selected");
                           }}
                         >
-                          {x.word}
-                        </span>
-                        <span
-                          style={{
-                            direction: "ltr",
-                            textAlign: "left",
-                          }}
-                        >
-                          {" = " + x.translation}
-                        </span>
-                      </li>
-                    ))}
+                          <span
+                            style={{
+                              direction: "rtl",
+                              textAlign: "right",
+                              unicodeBidi: "bidi-override",
+                            }}
+                          >
+                            {x.word}
+                          </span>
+                          <span
+                            style={{
+                              direction: "ltr",
+                              textAlign: "left",
+                            }}
+                          >
+                            {` ${x.value} = ${x.translation}`}
+                          </span>
+                        </li>
+                      ))}
                   </ul>
                 </div>
               </div>
@@ -500,9 +580,16 @@ const App = () => {
               height: "100%",
               alignItems: "center",
               margin: "auto",
+              flexFlow: "column",
             }}
           >
             <p style={{ fontSize: "3em" }}>Help Menu</p>
+            <p>Use the arrow keys to browse.</p>
+            <p>Words on the right match the value of the current verse.</p>
+            <p>Verses with the same value appear below the selected verse.</p>
+            <p>Clicking a verse jumps to it.</p>
+            <p>Clicking a word searches for that value.</p>
+            <p>Try searching for words or numbers</p>
           </div>
         )}
       </div>

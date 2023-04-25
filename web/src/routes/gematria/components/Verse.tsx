@@ -4,9 +4,11 @@ export const Verse = (props: {
   heb: string;
   eng: string;
   smalltext: string;
+  onClick: any;
 }) => {
   return (
     <div
+      onClick={props.onClick}
       style={{
         display: "flex",
         flexDirection: "column",

@@ -1,5 +1,3 @@
-// TODO map matches
-// TODO english or hebrew into total input searches
 // TODO Palindromes
 // TODO Primes
 // TODO Count appearances of searched words
@@ -30,7 +28,7 @@ const sections: any = {
     "II Samuel",
     "I Kings",
     "II Kings",
-    "Isiah",
+    "Isaiah",
     "Jeremiah",
     "Ezekiel",
     "Hosea",

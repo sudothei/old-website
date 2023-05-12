@@ -1,11 +1,5 @@
-// TODO Palindromes
-// TODO Primes
-// TODO Count appearances of searched words
-// TODO Show Gematria of searched word somehow
-// TODO Search appearances
+// TODO Search appearances via tool menu
 // TODO single asterisk in search box means any number
-// TODO regex matching for words
-// TODO sort Verses_Gematria
 
 import * as React from "react";
 import { useState, useEffect } from "react";
@@ -74,6 +68,8 @@ const App = () => {
   const [searchWord, setSearchWord] = useState<string>("");
   const [currentMatches, setCurrentMatches] = useState<any[]>([]);
   const [plusMinusOne, setPlusMinusOne] = useState<boolean>(true);
+  const [primeFilter, setPrimeFilter] = useState<boolean>(false);
+  const [palindromeFilter, setPalindromeFilter] = useState<boolean>(false);
 
   useEffect(() => {
     if (currentSidra != 0 && currentParsha != 0) {
@@ -101,85 +97,91 @@ const App = () => {
     setCurrentMatches(getMatches(currentValue));
   }, [currentValue, plusMinusOne]);
 
-  const handleSearch = (evt: any) => {
-    if (evt.key == "Enter") {
-      const term: string = evt.target.value;
-      setCurrentValue(term);
-      if (toInteger(term) != 0) {
-        setCurrentValue(toInteger(term).toString());
-        setSearchMode(true);
-        const matches = Dictionary.filter((x: any) => {
-          return x.value === toInteger(term);
-        });
-        setCurrentWords(matches);
-      } else {
-        const matches = Dictionary.filter((x: any) => {
-          const word: string = `${x.translation}`;
-          return word.toLowerCase().includes(term.toLowerCase());
-        });
-        setSearchWord(term);
-        setCurrentWords(matches);
-      }
+  const isPrime = (x: number) => {
+    for (let i = 2; i < Math.sqrt(x); i++) {
+      if (x % i === 0) return false;
     }
+    return x > 1;
+  };
+  const isPalindrome = (x: number) => {
+    if (x % 10 == 0) return 0;
+    let r = 0;
+    while (r < x) {
+      r = 10 * r + (x % 10);
+      x /= 10;
+    }
+    return x == r || x == r / 10;
   };
 
-  {
-    /*
-     *  const calculateGematria = (word: string): number => {
-     *    const gematriaTable: { [key: string]: number } = {
-     *      א: 1,
-     *      ב: 2,
-     *      ג: 3,
-     *      ד: 4,
-     *      ה: 5,
-     *      ו: 6,
-     *      ז: 7,
-     *      ח: 8,
-     *      ט: 9,
-     *      י: 10,
-     *      כ: 20,
-     *      ל: 30,
-     *      מ: 40,
-     *      נ: 50,
-     *      ס: 60,
-     *      ע: 70,
-     *      פ: 80,
-     *      צ: 90,
-     *      ק: 100,
-     *      ר: 200,
-     *      ש: 300,
-     *      ת: 400,
-     *    };
-     *
-     *    let gematriaValue = 0;
-     *
-     *    for (let i = 0; i < word.length; i++) {
-     *      const letter = word[i];
-     *      if (gematriaTable.hasOwnProperty(letter)) {
-     *        gematriaValue += gematriaTable[letter];
-     *      }
-     *    }
-     *
-     *    return gematriaValue;
-     *  };
-     */
-  }
+  const handleSearch = (evt: any) => {
+    if (evt.key == "Enter") {
+      let matches: any[] = [];
+      const term: string = evt.target.value;
+      setCurrentValue(term);
+      if (term == "*" && (primeFilter || palindromeFilter)) {
+        let numbers = Dictionary.map((x: any) => x.value);
+        numbers = [...new Set(numbers)];
+        if (primeFilter) {
+          numbers = numbers.filter((x: number) => isPrime(x));
+        }
+        if (palindromeFilter) {
+          numbers = numbers.filter((x: number) => isPalindrome(x));
+        }
+        numbers = numbers.filter((x: number) => `${x}` in Verses_Gematria);
+        numbers.forEach((n: number) => {
+          matches = [
+            ...matches,
+            ...Dictionary.filter((x: any) => x.value === n),
+          ];
+        });
+      } else {
+        if (toInteger(term) != 0) {
+          setCurrentValue(toInteger(term).toString());
+          setSearchMode(true);
+          matches = Dictionary.filter((x: any) => {
+            return x.value === toInteger(term);
+          });
+          setCurrentWords(matches);
+        } else {
+          matches = Dictionary.filter((x: any) => {
+            const word: string = `${x.translation}`;
+            return word.toLowerCase().includes(term.toLowerCase());
+          });
+        }
+        if (primeFilter) {
+          matches = matches.filter((x: any) => isPrime(x.value));
+        }
+        if (palindromeFilter) {
+          matches = matches.filter((x: any) => isPalindrome(x.value));
+        }
+        matches = matches.filter((x: any) => `${x.value}` in Verses_Gematria);
+      }
+      setSearchWord(term);
+      setCurrentWords(matches);
+    }
+  };
 
   const getMatches = (term: string) => {
     if (term in Verses_Gematria) {
       let verses;
-      verses = Verses_Gematria[term];
 
-      if (plusMinusOne) {
-        const versesMinusOne = Verses_Gematria[`${toInteger(term) - 1}`];
-        const versesPlusOne = Verses_Gematria[`${toInteger(term) + 1}`];
-        if (typeof versesMinusOne != "undefined") {
-          verses = [...verses, ...versesMinusOne];
-        }
-        if (typeof versesPlusOne != "undefined") {
-          verses = [...verses, ...versesMinusOne];
+      if (palindromeFilter || primeFilter) {
+      } else {
+        verses = Verses_Gematria[term];
+
+        if (plusMinusOne) {
+          const versesMinusOne = Verses_Gematria[`${toInteger(term) - 1}`];
+          const versesPlusOne = Verses_Gematria[`${toInteger(term) + 1}`];
+          if (typeof versesMinusOne != "undefined") {
+            verses = [...verses, ...versesMinusOne];
+          }
+          if (typeof versesPlusOne != "undefined") {
+            verses = [...verses, ...versesMinusOne];
+          }
         }
       }
+
+      verses = [...new Set(verses)];
 
       if (!searchMode) {
         return verses.filter(
@@ -453,6 +455,40 @@ const App = () => {
             >
               <span style={{ fontFamily: "arial", fontSize: ".5em" }}>±</span>
               <span>1</span>
+            </div>
+          )}
+          {primeFilter ? (
+            <div
+              className="tanakh-filter"
+              style={{ color: "black", background: "#0f0", cursor: "pointer" }}
+              onClick={() => setPrimeFilter(false)}
+            >
+              <span>prime</span>
+            </div>
+          ) : (
+            <div
+              className="tanakh-filter"
+              onClick={() => setPrimeFilter(true)}
+              style={{ cursor: "pointer" }}
+            >
+              <span>prime</span>
+            </div>
+          )}
+          {palindromeFilter ? (
+            <div
+              className="tanakh-filter"
+              style={{ color: "black", background: "#0f0", cursor: "pointer" }}
+              onClick={() => setPalindromeFilter(false)}
+            >
+              <span>palindrome</span>
+            </div>
+          ) : (
+            <div
+              className="tanakh-filter"
+              onClick={() => setPalindromeFilter(true)}
+              style={{ cursor: "pointer" }}
+            >
+              <span>palindrome</span>
             </div>
           )}
           <div className="tanakh-filter" onClick={() => setCurrentSidra(0)}>

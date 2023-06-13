@@ -96,7 +96,7 @@ const App = () => {
 
   useEffect(() => {
     setCurrentMatches(getMatches(currentValue));
-  }, [currentValue, plusMinusOne]);
+  }, [currentValue, plusMinusOne, psalmFilter, primeFilter, palindromeFilter]);
 
   const isPrime = (x: number) => {
     for (let i = 2; i < Math.sqrt(x); i++) {

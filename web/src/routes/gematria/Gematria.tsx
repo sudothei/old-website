@@ -70,6 +70,7 @@ const App = () => {
   const [plusMinusOne, setPlusMinusOne] = useState<boolean>(true);
   const [primeFilter, setPrimeFilter] = useState<boolean>(false);
   const [palindromeFilter, setPalindromeFilter] = useState<boolean>(false);
+  const [psalmFilter, setPsalmFilter] = useState<boolean>(false);
 
   useEffect(() => {
     if (currentSidra != 0 && currentParsha != 0) {
@@ -103,6 +104,7 @@ const App = () => {
     }
     return x > 1;
   };
+
   const isPalindrome = (x: number) => {
     if (x % 10 == 0) return 0;
     let r = 0;
@@ -111,6 +113,15 @@ const App = () => {
       x /= 10;
     }
     return x == r || x == r / 10;
+  };
+
+  const hasPsalms = (x: number) => {
+    const matches: any[] = getMatches(`${x}`);
+    if (matches.filter((x: any) => x["book"] == "Psalms").length == 0) {
+      return false;
+    } else {
+      return true;
+    }
   };
 
   const handleSearch = (evt: any) => {
@@ -154,6 +165,9 @@ const App = () => {
         if (palindromeFilter) {
           matches = matches.filter((x: any) => isPalindrome(x.value));
         }
+        if (psalmFilter) {
+          matches = matches.filter((x: any) => hasPsalms(x.value));
+        }
         matches = matches.filter((x: any) => `${x.value}` in Verses_Gematria);
       }
       setSearchWord(term);
@@ -171,12 +185,15 @@ const App = () => {
 
         if (plusMinusOne) {
           const versesMinusOne = Verses_Gematria[`${toInteger(term) - 1}`];
+          console.log(versesMinusOne);
           const versesPlusOne = Verses_Gematria[`${toInteger(term) + 1}`];
           if (typeof versesMinusOne != "undefined") {
-            verses = [...verses, ...versesMinusOne];
+            try {
+              verses = [...verses, ...versesMinusOne];
+            } catch {}
           }
           if (typeof versesPlusOne != "undefined") {
-            verses = [...verses, ...versesMinusOne];
+            verses = [...verses, ...versesPlusOne];
           }
         }
       }
@@ -184,7 +201,7 @@ const App = () => {
       verses = [...new Set(verses)];
 
       if (!searchMode) {
-        return verses.filter(
+        verses = verses.filter(
           (x: any) =>
             !(
               x["section"] === currentSection &&
@@ -193,9 +210,11 @@ const App = () => {
               x["sidra"] === currentSidra
             )
         );
-      } else {
-        return verses;
       }
+      if (psalmFilter) {
+        verses = verses.filter((x: any) => x["book"] == "Psalms");
+      }
+      return verses;
     } else return [];
   };
 
@@ -489,6 +508,23 @@ const App = () => {
               style={{ cursor: "pointer" }}
             >
               <span>palindrome</span>
+            </div>
+          )}
+          {psalmFilter ? (
+            <div
+              className="tanakh-filter"
+              style={{ color: "black", background: "#0f0", cursor: "pointer" }}
+              onClick={() => setPsalmFilter(false)}
+            >
+              <span>psalm</span>
+            </div>
+          ) : (
+            <div
+              className="tanakh-filter"
+              onClick={() => setPsalmFilter(true)}
+              style={{ cursor: "pointer" }}
+            >
+              <span>psalm</span>
             </div>
           )}
           <div className="tanakh-filter" onClick={() => setCurrentSidra(0)}>

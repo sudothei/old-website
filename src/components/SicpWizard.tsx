@@ -7,14 +7,14 @@ import * as spiral from "static/media/spiral.webp";
 export const SicpWizard = () => {
   const smallScreen = window.innerWidth <= 700;
   const handleScroll = () => {
-  const wizard = document.querySelector("#sicp-wizard");
-  if (wizard != null){
+    const wizard = document.querySelector("#sicp-wizard");
+    if (wizard != null) {
       const yScrollAmt = wizard.getBoundingClientRect().top;
       const orb: HTMLDivElement | null = document.querySelector("#orb");
-          if (orb != null ){
-              orb.style.transform = `rotate(${yScrollAmt}deg)`;
-          }
-  }
+      if (orb != null) {
+        orb.style.transform = `rotate(${yScrollAmt}deg)`;
+      }
+    }
   };
   useEffect(() => {
     document.addEventListener("wheel", handleScroll);
@@ -28,9 +28,7 @@ export const SicpWizard = () => {
       onScroll={handleScroll}
       id="sicp-wizard"
       style={{
-        paddingBottom: smallScreen ? 20 : 50,
-        paddingTop: smallScreen ? "2em" : 0,
-        height: smallScreen ? 520 / 5 : 520 / 2,
+        minHeight: 260,
         display: "flex",
         justifyContent: "center",
         placeItems: "end",
@@ -40,15 +38,15 @@ export const SicpWizard = () => {
         id="orb"
         style={{
           position: "relative",
-          bottom: smallScreen ? -30 : -60,
+          bottom: -60,
           transform: `translate(${smallScreen ? -1 : -3}px, 0)`,
         }}
       >
         <BayerDither
           pixelSize={1}
           image={spiral}
-          width={smallScreen ? 65 : 130}
-          height={smallScreen ? 65 : 130}
+          width={130}
+          height={130}
           colorA={[0, 255, 0, 255]}
           colorB={[0, 0, 0, 0]}
         />
@@ -57,8 +55,8 @@ export const SicpWizard = () => {
         <BayerDither
           pixelSize={1}
           image={sicpWiz}
-          width={smallScreen ? 800 / 4 : 800 / 2}
-          height={smallScreen ? 520 / 4 : 520 / 2}
+          width={400}
+          height={260}
           colorA={[0, 255, 0, 255]}
           colorB={[0, 0, 0, 0]}
         />

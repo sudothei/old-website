@@ -1,13 +1,1 @@
-# dependencies
-web/node_modules
-# testing
-web/coverage
-# production
-web/build
-# misc
-web/yarn-debug.log*
-web/yarn-error.log*
-
-
-# production
-api/target
+node_modules

@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
 import init, { Repl } from "helpers/sudothei-lisp/pkg/sudothei_lisp.js";
 import Command from "types/Command";
 
@@ -134,7 +133,6 @@ export const Terminal = () => {
 Type "help" for commands.
 `;
   const [history, setHistory] = useState<string[]>([titleArt]);
-  const navigate = useNavigate();
   let program = "cli";
 
   let repl: any;
@@ -149,10 +147,6 @@ Type "help" for commands.
       {
         command: "help",
         description: "Displays this help menu.",
-      },
-      {
-        command: "impress me",
-        description: "(WIP) Have you heard of demoscene?",
       },
       {
         command: "lisp",
@@ -179,10 +173,6 @@ Type "help" for commands.
         case "lisp":
           program = "lisp";
           output = lispArt;
-          break;
-        case "impress me":
-          document.documentElement.requestFullscreen();
-          navigate("/demo");
           break;
         case "clear":
           setHistory([""]);

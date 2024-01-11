@@ -4,8 +4,8 @@ import { createRoot } from "react-dom/client";
 
 import "static/index.css";
 import { Home } from "./routes/home/Home";
-import { Demo } from "./routes/demo/Demo";
 import { Gematria } from "./routes/gematria/Gematria";
+import { Rag } from "./routes/rag/Rag";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
@@ -15,8 +15,8 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />}></Route>
-        <Route path="/demo" element={<Demo />}></Route>
         <Route path="/gematria" element={<Gematria />}></Route>
+        <Route path="/rag" element={<Rag />}></Route>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

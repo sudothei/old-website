@@ -343,7 +343,11 @@ const App = () => {
   return (
     <div
       className="container"
-      style={{ justifyContent: "start", height: "calc(100vh - 4em)" }}
+      style={{
+        justifyContent: "start",
+        height: "calc(100vh - 4em)",
+        display: "flex",
+      }}
     >
       <div
         style={{

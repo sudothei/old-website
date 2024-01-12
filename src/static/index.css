@@ -211,3 +211,20 @@ li::marker {
         max-height: calc(100% - 2em);
     }
 }
+
+@-moz-keyframes spin {
+    from { -moz-transform: rotate(360deg); }
+    to { -moz-transform: rotate(0deg); }
+}
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(360deg); }
+    to { -webkit-transform: rotate(0deg); }
+}
+@keyframes spin {
+    from {transform:rotate(360deg);}
+    to {transform:rotate(0deg);}
+}
+
+#orb {
+    animation: 3s linear spin infinite;
+}

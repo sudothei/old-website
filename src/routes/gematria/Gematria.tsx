@@ -464,7 +464,11 @@ const App = () => {
           {plusMinusOne ? (
             <div
               className="tanakh-filter"
-              style={{ color: "black", background: "#0f0", cursor: "pointer" }}
+              style={{
+                color: "black",
+                background: "#c80815",
+                cursor: "pointer",
+              }}
               onClick={() => setPlusMinusOne(false)}
             >
               <span style={{ fontFamily: "arial", fontSize: ".5em" }}>±</span>
@@ -483,7 +487,11 @@ const App = () => {
           {primeFilter ? (
             <div
               className="tanakh-filter"
-              style={{ color: "black", background: "#0f0", cursor: "pointer" }}
+              style={{
+                color: "black",
+                background: "#c80815",
+                cursor: "pointer",
+              }}
               onClick={() => setPrimeFilter(false)}
             >
               <span>prime</span>
@@ -500,7 +508,11 @@ const App = () => {
           {palindromeFilter ? (
             <div
               className="tanakh-filter"
-              style={{ color: "black", background: "#0f0", cursor: "pointer" }}
+              style={{
+                color: "black",
+                background: "#c80815",
+                cursor: "pointer",
+              }}
               onClick={() => setPalindromeFilter(false)}
             >
               <span>palindrome</span>
@@ -517,7 +529,11 @@ const App = () => {
           {psalmFilter ? (
             <div
               className="tanakh-filter"
-              style={{ color: "black", background: "#0f0", cursor: "pointer" }}
+              style={{
+                color: "black",
+                background: "#c80815",
+                cursor: "pointer",
+              }}
               onClick={() => setPsalmFilter(false)}
             >
               <span>psalm</span>
@@ -557,7 +573,7 @@ const App = () => {
               {!searchMode ? (
                 <div
                   id="current-verse"
-                  style={{ border: "3px solid #0f0", marginBottom: "1.5em" }}
+                  style={{ border: "3px solid #c80815", marginBottom: "1.5em" }}
                 >
                   <Verse
                     onClick={null}
@@ -609,7 +625,7 @@ const App = () => {
               style={{
                 width: "33%",
                 fontFamily: "Syne Mono",
-                border: "3px solid #0f0",
+                border: "3px solid #c80815",
                 margin: "0.5em",
                 overflowY: "scroll",
               }}
@@ -702,8 +718,6 @@ export const Gematria = () => {
     <div className="App">
       <LoadingBar />
       <App />
-      <div className="border-corners"></div>
-      <div className="border-edges"></div>
     </div>
   );
 };

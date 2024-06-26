@@ -9,11 +9,14 @@ export const AnimatedPfp = () => {
     let imageIdx = 0;
     let goUpward = true;
     let wait = 10;
-    const images: NodeListOf<HTMLImageElement> = document.querySelectorAll(".pfp-image");
-    images.forEach((image: HTMLImageElement) =>image.style.display = "none" )
+    const images: NodeListOf<HTMLImageElement> =
+      document.querySelectorAll(".pfp-image");
+    images.forEach((image: HTMLImageElement) => (image.style.display = "none"));
 
     const interval = setInterval(() => {
-      images.forEach((image: HTMLImageElement) =>image.style.display = "none" )
+      images.forEach(
+        (image: HTMLImageElement) => (image.style.display = "none")
+      );
       images[imageIdx].style.display = "block";
 
       if (imageIdx === images.length - 1) {
@@ -45,8 +48,8 @@ export const AnimatedPfp = () => {
           image={pfpImage}
           height={300}
           width={300}
-          colorB={[0,0,0,0]}
-          colorA={[0,255,0,255]}
+          colorB={[0, 0, 0, 0]}
+          colorA={[200, 8, 21, 255]}
         />
       </div>
       <div className="pfp-image">
@@ -55,8 +58,8 @@ export const AnimatedPfp = () => {
           image={pfpImage}
           height={300}
           width={300}
-          colorB={[0,0,0,0]}
-          colorA={[0,255,0,255]}
+          colorB={[0, 0, 0, 0]}
+          colorA={[200, 8, 21, 255]}
         />
       </div>
       <div className="pfp-image">
@@ -65,8 +68,8 @@ export const AnimatedPfp = () => {
           image={pfpImage}
           height={300}
           width={300}
-          colorB={[0,0,0,0]}
-          colorA={[0,255,0,255]}
+          colorB={[0, 0, 0, 0]}
+          colorA={[200, 8, 21, 255]}
         />
       </div>
       <div className="pfp-image">
@@ -75,8 +78,8 @@ export const AnimatedPfp = () => {
           image={pfpImage}
           height={300}
           width={300}
-          colorB={[0,0,0,0]}
-          colorA={[0,255,0,255]}
+          colorB={[0, 0, 0, 0]}
+          colorA={[200, 8, 21, 255]}
         />
       </div>
       <div className="pfp-image">
@@ -85,8 +88,8 @@ export const AnimatedPfp = () => {
           image={pfpImage}
           height={300}
           width={300}
-          colorB={[0,0,0,0]}
-          colorA={[0,255,0,255]}
+          colorB={[0, 0, 0, 0]}
+          colorA={[200, 8, 21, 255]}
         />
       </div>
     </div>

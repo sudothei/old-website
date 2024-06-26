@@ -694,7 +694,7 @@ export const Enochian = () => {
             onChange={inputChanged}
             style={{
               background: "transparent",
-              color: "#0f0",
+              color: "#c80815",
               width: "100%",
               border: "none",
               fontSize: "1.2em",

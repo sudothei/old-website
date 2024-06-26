@@ -82,7 +82,7 @@ const TerminalInput = (props: { onSubmit: (input: string) => void }) => {
           rows={1}
           style={{
             background: "transparent",
-            color: "#0f0",
+            color: "#c80815",
             width: "100%",
             border: "none",
             fontSize: "1.2em",
@@ -203,7 +203,7 @@ Type "help" for commands.
     <div
       style={{
         margin: "1em",
-        border: "3px solid #0f0",
+        border: "3px solid #c80815",
         display: "flex",
         justifyContent: "flex-start",
         flexDirection: "column",

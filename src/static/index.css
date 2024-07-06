@@ -317,8 +317,6 @@ spin {
     animation: 1s ease-out beat infinite;
 }
 
-
-
 @keyframes bigzoom {
     from {
         transform: scale(105%);
@@ -335,6 +333,24 @@ spin {
   -webkit-animation-iteration-count: 1;
   -webkit-animation-timing-function: linear;
     animation: 1s linear bigzoom forwards !important;
+}
+
+@keyframes flydown {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(3000%);
+        opacity: 0%;
+    }
+}
+
+.flydown {
+  -webkit-animation-name: flydown;
+  -webkit-animation-duration: 10s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-timing-function: linear;
+    animation: 1s linear flydown forwards !important;
 }
 
 #sigil:hover {

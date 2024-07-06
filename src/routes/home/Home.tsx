@@ -36,6 +36,7 @@ const App = ({ ...props }) => {
 
   const abandonAllHope = () => {
     document.querySelector("#sigil")!.className = "bigzoom";
+    document.querySelector("h2")!.className = "flydown";
     props.setEntered(true);
   };
 

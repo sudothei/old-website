@@ -2,11 +2,12 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import { LoadingBar } from "components/LoadingBar";
 import Sigil from "components/Sigil.svg";
+import { ActualHome } from "./ActualHome";
 
 // Metadata for SEO
 import { Helmet } from "react-helmet";
 
-const App = () => {
+const App = ({ ...props }) => {
   const [distance, setDistance] = useState("0");
 
   useEffect(() => {
@@ -35,6 +36,7 @@ const App = () => {
 
   const abandonAllHope = () => {
     document.querySelector("#sigil")!.className = "bigzoom";
+    props.setEntered(true);
   };
 
   return (
@@ -62,10 +64,13 @@ const App = () => {
 };
 
 export const Home = () => {
+  const [entered, setEntered] = useState(false);
+
   return (
     <div className="App">
       <LoadingBar />
-      <App />
+      <App setEntered={setEntered} />
+      <ActualHome entered={entered} />
     </div>
   );
 };

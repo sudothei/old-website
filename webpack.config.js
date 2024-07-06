@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const webpack = require("webpack");
+const loader = require("ts-loader");
 
 module.exports = (env) => {
   env.API_PORT;
@@ -44,6 +45,13 @@ module.exports = (env) => {
           test: /\.(wasm)$/,
           loader: "file-loader",
           type: "javascript/auto",
+        },
+        {
+          test: /\.(png|jp(e*)g|svg|gif)$/,
+          loader: "file-loader",
+          options: {
+            name: "images/[hash]-[name].[ext]",
+          },
         },
       ],
     },

@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as pfpImage from "static/media/pfp.webp";
 import { useEffect } from "react";
-import { BayerDither } from "components/BayerDither";
+import { BayerDither } from "./BayerDither";
 
 export const AnimatedPfp = () => {
   // timer effect for animating pfp
@@ -49,7 +49,7 @@ export const AnimatedPfp = () => {
           height={300}
           width={300}
           colorB={[0, 0, 0, 0]}
-          colorA={[0, 255, 0, 255]}
+          colorA={[200, 8, 21, 255]}
         />
       </div>
       <div className="pfp-image">
@@ -59,7 +59,7 @@ export const AnimatedPfp = () => {
           height={300}
           width={300}
           colorB={[0, 0, 0, 0]}
-          colorA={[0, 255, 0, 255]}
+          colorA={[200, 8, 21, 255]}
         />
       </div>
       <div className="pfp-image">
@@ -69,7 +69,7 @@ export const AnimatedPfp = () => {
           height={300}
           width={300}
           colorB={[0, 0, 0, 0]}
-          colorA={[0, 255, 0, 255]}
+          colorA={[200, 8, 21, 255]}
         />
       </div>
       <div className="pfp-image">
@@ -79,7 +79,7 @@ export const AnimatedPfp = () => {
           height={300}
           width={300}
           colorB={[0, 0, 0, 0]}
-          colorA={[0, 255, 0, 255]}
+          colorA={[200, 8, 21, 255]}
         />
       </div>
       <div className="pfp-image">
@@ -89,7 +89,7 @@ export const AnimatedPfp = () => {
           height={300}
           width={300}
           colorB={[0, 0, 0, 0]}
-          colorA={[0, 255, 0, 255]}
+          colorA={[200, 8, 21, 255]}
         />
       </div>
     </div>

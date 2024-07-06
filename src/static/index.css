@@ -1,11 +1,44 @@
+:root {
+    --accent: #800000;
+}
+
 @font-face {
     font-family: "Syne Mono";
     src: url("static/fonts/SyneMono-Regular.ttf") format("woff2");
     font-display: swap;
 }
 
+@font-face {
+    font-family: "AlphabetoftheMagi";
+    src: url("static/fonts/AlphabetoftheMagi.ttf") format("woff2");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Rosarivo";
+    src: url("static/fonts/Rosarivo-Regular.ttf") format("woff2");
+    font-display: swap;
+}
+
+h2 {
+    font-family: "Rosarivo";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 textarea {
-  resize: none;
+    resize: none;
+}
+
+@keyframes scrollBackground {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: 0 100%;
+    }
 }
 
 body {
@@ -13,8 +46,9 @@ body {
     font-family: 'Syne Mono';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background: url("static/media/background-tileable.webp");
-    color: #c80815;
+    background: url("static/media/background.webp") repeat;
+    color: var(--accent);
+    animation: scrollBackground 30s linear infinite;
 }
 
 code {
@@ -23,7 +57,7 @@ code {
     -moz-osx-font-smoothing: grayscale;
 }
 
-body, html, #root, .App {
+body, html, #root {
     height: 100%;
     width: 100%;
     margin: 0;
@@ -39,30 +73,29 @@ body, html, #root, .App {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
     width: 100%;
-    max-width: calc(100% - 4em);
-    max-height: calc(100% - 4em);
+    height: 100vh;
+    max-width: 100%;
+    max-height: 100%;
     box-sizing: border-box;
     overflow-x: hidden;
     overflow-y: scroll;
     position: fixed;
-    top: 2em;
-    left: 2em;
-    border-radius: 2em;
-    padding-bottom: 2em;
+    align-content: center;
+    box-shadow: inset 0 0 10rem black,inset 0 0 5rem black ;
 }
 
 canvas {
-  image-rendering: -moz-crisp-edges;    /* Firefox */
-  image-rendering: -webkit-crisp-edges; /* Webkit (Safari) */
-  image-rendering: pixelated;           /* Chrome */
+    image-rendering: -moz-crisp-edges;    /* Firefox */
+    image-rendering: -webkit-crisp-edges; /* Webkit (Safari) */
+    image-rendering: pixelated;           /* Chrome */
 }
 
 .ui-box {
-    border: 3px solid #c80815;
+    border: 3px solid var(--accent);
     margin: 1em;
     width: fit-content;
     height: fit-content;
@@ -72,7 +105,7 @@ canvas {
 }
 
 .symbol-btn, .symbol-btn-selected {
-    border: 3px solid #c80815;
+    border: 3px solid var(--accent);
     min-height: 50px;
     max-height: 50px;
     min-width: 50px;
@@ -85,7 +118,7 @@ canvas {
 }
 
 .symbol-btn-selected {
-    background: #c80815;
+    background: var(--accent);
     color: #000;
 }
 
@@ -99,7 +132,7 @@ canvas {
 
 a {
     text-decoration: none;
-    color: #c80815;
+    color: var(--accent);
 }
 pre {
     font-family: monospace !important;
@@ -109,10 +142,10 @@ pre {
 .tanakh-filter {
     font-family: monospace;
     background: transparent;
-    color: #c80815;
+    color: var(--accent);
     font-size: 2em;
     font-weight: 900;
-    border: 3px solid #c80815;
+    border: 3px solid var(--accent);
     padding: .2em;
     margin: .4em;
     width: fit-content;
@@ -120,7 +153,7 @@ pre {
 }
 
 select.tanakh-filter:focus, input.tanakh-filter:focus {
-    background-color: #c80815;
+    background-color: var(--accent);
     color: black;
 }
 
@@ -131,7 +164,7 @@ select.tanakh-filter:focus, input.tanakh-filter:focus {
 }
 
 .gematria-word:hover, .gematria-word-selected {
-    background: #c80815;
+    background: var(--accent);
     color: black;
 }
 
@@ -141,19 +174,19 @@ input[type=number] {
 }
 
 input[type="number"] {
-  -webkit-appearance: textfield;
-     -moz-appearance: textfield;
-          appearance: textfield;
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
 }
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none;
-  appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
 }
 
 select.tanakh-filter * {
     background-color: black;
-    color: #c80815
+    color: var(--accent)
 }
 
 li::marker {
@@ -177,6 +210,168 @@ li::marker {
     to {transform:rotate(0deg);}
 }
 
-#orb {
+spin {
     animation: 3s linear spin infinite;
+}
+
+@keyframes glow {
+    from {
+        filter: saturate(100%);
+    }
+    to {
+        filter: saturate(200%);
+    }
+}
+
+@keyframes fade {
+    from {
+        filter: saturate(200%);
+    }
+    to {
+        filter: saturate(100%);
+    }
+}
+
+.sigilbox {
+    animation: 0.5s linear fade forwards;
+    filter: drop-shadow(0 0 3em black);
+}
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+.sigilbox:hover {
+    animation: 0.5s linear glow forwards;
+}
+
+@keyframes beat {
+    0% {
+        filter: saturate(100%);
+        width: 80vh;
+    }
+    14% {
+        filter: saturate(150%);
+        width: 83vh;
+    }
+    28% {
+        filter: saturate(200%);
+        width: 85vh;
+    }
+    42% {
+        filter: saturate(150%);
+        width: 83vh;
+    }
+    70% {
+        filter: saturate(100%);
+        width: 80vh;
+    }
+    100% {
+        filter: saturate(100%);
+        width: 80vh;
+    }
+}
+
+@keyframes hoverbeat {
+    0% {
+        filter: saturate(100%);
+        width: 80vh;
+    }
+    14% {
+        filter: saturate(150%);
+        width: 83vh;
+    }
+    28% {
+        filter: saturate(200%);
+        width: 85vh;
+    }
+    42% {
+        filter: saturate(150%);
+        width: 83vh;
+    }
+    70% {
+        filter: saturate(100%);
+        width: 80vh;
+    }
+    100% {
+        filter: saturate(100%);
+        width: 80vh;
+    }
+}
+
+#sigil {
+    width: 80vh;
+    align-self: center;
+    will-change: filter;
+    transition: filter 1s;
+    animation: 1s ease-out beat infinite;
+}
+
+
+
+@keyframes bigzoom {
+    from {
+        transform: scale(105%);
+    }
+    to {
+        transform: scale(3000%);
+        opacity: 0%;
+    }
+}
+
+.bigzoom {
+  -webkit-animation-name: bigzoom;
+  -webkit-animation-duration: 10s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-timing-function: linear;
+    animation: 1s linear bigzoom forwards !important;
+}
+
+#sigil:hover {
+    pointer-events: visiblePainted; /* Ensures only painted areas are sensitive to hover */
+    transition: transform 1000ms;
+    transform: scale(110%);
+    animation: 1s ease-out hoverbeat infinite;
+}
+
+/*
+ *For mobile
+ */
+
+@media (pointer:none), (pointer:coarse) {
+    @keyframes beat {
+        0% {
+            filter: saturate(100%);
+            width: 90vw;
+        }
+        19% {
+            filter: saturate(130%);
+            width: 91vw;
+        }
+        20% {
+            filter: saturate(150%);
+            width: 92vw;
+        }
+        21% {
+            filter: saturate(130%);
+            width: 91;
+        }
+        100% {
+            filter: saturate(100%);
+            width: 90vw;
+        }
+    }
+    #sigil {
+        width: 90vw;
+    }
 }

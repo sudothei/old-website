@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import * as backgroundImage from "static/media/background-tileable.webp";
 
 export const LoadingBar = () => {
   const [loading, setLoading] = useState(true);
@@ -39,7 +38,7 @@ export const LoadingBar = () => {
       style={{
         zIndex: 1000,
         position: "absolute",
-        background: `url(${backgroundImage.default})`,
+        background: "#000",
         display: loading ? "flex" : "none",
         flexDirection: "column",
         height: "100vh",
@@ -57,9 +56,16 @@ export const LoadingBar = () => {
           textAlign: "left",
         }}
       >
-        <code>-------------------- LOADING% --------------------</code>
-        <code id="loading-progress"></code>
-        <code>--------------------------------------------------</code>
+        <code style={{ color: "red", fontWeight: "bold" }}>
+          -------------------- LOADING% --------------------
+        </code>
+        <code
+          style={{ color: "red", fontWeight: "bold" }}
+          id="loading-progress"
+        ></code>
+        <code style={{ color: "red", fontWeight: "bold" }}>
+          --------------------------------------------------
+        </code>
       </div>
     </div>
   );

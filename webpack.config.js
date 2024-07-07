@@ -24,7 +24,7 @@ module.exports = (env) => {
       alias: {
         react: path.join(__dirname, "node_modules", "react"),
       },
-      extensions: [".ts", ".tsx", ".js", ".jsx"],
+      extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
     },
     module: {
       rules: [

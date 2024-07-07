@@ -37,7 +37,9 @@ const App = ({ ...props }) => {
   const abandonAllHope = () => {
     document.querySelector("#sigil")!.className = "bigzoom";
     document.querySelector("h2")!.className = "flydown";
-    props.setEntered(true);
+    setTimeout(() => {
+      props.setEntered(true);
+    }, 1000);
   };
 
   return (
@@ -48,7 +50,7 @@ const App = ({ ...props }) => {
       >
         <img src={Sigil} id="sigil" onClick={abandonAllHope} />
       </div>
-      <h2>Abandon all hope, ye who enter here.</h2>
+      <h2 className="abandon">Abandon all hope, ye who enter here.</h2>
       <Helmet>
         <title>sudothei</title>
         <meta
@@ -70,8 +72,7 @@ export const Home = () => {
   return (
     <div className="App">
       <LoadingBar />
-      <App setEntered={setEntered} />
-      <ActualHome entered={entered} />
+      {entered ? <ActualHome /> : <App setEntered={setEntered} />}
     </div>
   );
 };

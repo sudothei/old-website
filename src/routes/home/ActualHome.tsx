@@ -17,26 +17,24 @@ const typedServices: Services = services as Services;
 
 type ServiceKeys = keyof Services;
 
-export const ActualHome = () => {
+export const ActualHome = ({ ...props }) => {
   const [activeService, setActiveService] = useState<ServiceKeys | "">("");
   const selectService = (service: ServiceKeys | "") => {
     setActiveService(service);
     setModalOpen(true);
     document.querySelector("#modal")!.className = "flyin-modal";
-    document.querySelector("#home")!.classList.add("flyout");
-    document.querySelector("#home")!.classList.remove("flyin");
+    document.querySelector("#home")!.className = "flyout";
   };
   const [modalOpen, setModalOpen] = useState(false);
 
   const closeModal = () => {
     setModalOpen(false);
     document.querySelector("#modal")!.className = "flyout-modal";
-    document.querySelector("#home")!.classList.add("flyin");
-    document.querySelector("#home")!.classList.remove("flyout");
+    document.querySelector("#home")!.className = "flyin";
   };
 
   return (
-    <div className="container">
+    <div className="container" style={props.style}>
       <Modal
         style={{
           visibility: modalOpen ? "visible" : "hidden",
@@ -55,6 +53,7 @@ export const ActualHome = () => {
       />
       <div
         id="home"
+        className={props.entered ? "" : "flyin"}
         style={{
           display: "flex",
           flexWrap: "wrap-reverse",
@@ -72,7 +71,11 @@ export const ActualHome = () => {
           <h2>Services</h2>
           <ul>
             {Object.keys(typedServices).map((x: string) => (
-              <li key={x} onClick={() => selectService(x as ServiceKeys)}>
+              <li
+                key={x}
+                onClick={() => selectService(x as ServiceKeys)}
+                style={{ cursor: "pointer" }}
+              >
                 {x}
               </li>
             ))}

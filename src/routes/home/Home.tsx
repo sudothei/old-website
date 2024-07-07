@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { LoadingBar } from "components/LoadingBar";
 import Sigil from "components/Sigil.svg";
 import { ActualHome } from "./ActualHome";
+import { Ticker } from "./components/Ticker";
 
 // Metadata for SEO
 import { Helmet } from "react-helmet";
@@ -35,15 +36,18 @@ const App = ({ ...props }) => {
   }, []);
 
   const abandonAllHope = () => {
-    document.querySelector("#sigil")!.className = "bigzoom";
-    document.querySelector("h2")!.className = "flydown";
-    setTimeout(() => {
-      props.setEntered(true);
-    }, 1000);
+    document.querySelector(".sigilbox")!.className = "bigzoom";
+    document.querySelector(".abandon")!.className = "flydown";
+    props.setEntered(true);
+    setTimeout(
+      () =>
+        document.querySelector("#sigil-container")!.classList.add("fadeout"),
+      1000
+    );
   };
 
   return (
-    <div className="container" style={{ placeContent: "center" }}>
+    <div className="container" id="sigil-container">
       <div
         className="sigilbox"
         style={{ animation: `${distance}s shake infinite` }}
@@ -72,7 +76,10 @@ export const Home = () => {
   return (
     <div>
       <LoadingBar />
-      {entered ? <ActualHome /> : <App setEntered={setEntered} />}
+      <Ticker className="left-ticker" />
+      <Ticker className="right-ticker" />
+      <App setEntered={setEntered} />
+      <ActualHome style={{ display: entered ? "flex" : "none" }} />
     </div>
   );
 };

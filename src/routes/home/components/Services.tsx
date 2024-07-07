@@ -19,7 +19,7 @@ export const Services = ({ ...props }) => {
 
   const selectService = (service: any) => {
     setActiveService(service);
-    props.openModal();
+    setTimeout(() => props.openModal(), 300);
   };
 
   return (
@@ -38,11 +38,13 @@ export const Services = ({ ...props }) => {
           </div>
           <div>
             {activeService && typedServices[activeService] ? (
-              <li>
+              <div>
                 {typedServices[activeService].map((x: string) => (
-                  <p>{x}</p>
+                  <li style={{ cursor: "pointer" }} id={x}>
+                    {x}
+                  </li>
                 ))}
-              </li>
+              </div>
             ) : null}
           </div>
         </div>

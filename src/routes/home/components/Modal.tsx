@@ -20,6 +20,7 @@ export const Modal = ({ ...props }) => {
             lineHeight: "1em",
             padding: "1em",
             display: "flex",
+            cursor: "pointer",
           }}
           onClick={() => props.closeModal()}
         >

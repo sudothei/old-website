@@ -111,15 +111,14 @@ body {
     background-color: rgb(255,0,0,0.18);
     margin: 1em;
     padding: 1em;
-    animation: 0.5s ease-out flyin-uibox;
 }
 
 .flyin {
-    animation: 0.5s ease-out flyin forwards;
+    animation: 0.25s ease-out flyin forwards;
 }
 
 .flyout {
-    animation: 0.5s ease-out flyout forwards;
+    animation: 0.25s ease-in flyout forwards;
 }
 
 #modal {
@@ -141,13 +140,13 @@ body {
 .flyin-modal {
     will-change: transform;
     transition: transform 1s;
-    animation: 0.5s ease-out flyin-modal forwards;
+    animation: 0.25s ease-out flyin-modal forwards;
 }
 
 .flyout-modal {
     will-change: transform;
     transition: transform 1s;
-    animation: 0.5s ease-in flyout-modal forwards;
+    animation: 0.25s ease-in flyout-modal forwards;
 }
 
 ul {
@@ -338,17 +337,17 @@ spin {
 }
 
 @keyframes shake {
-  0% { transform: translate(1px, 1px) rotate(0deg); }
-  10% { transform: translate(-1px, -2px) rotate(-1deg); }
-  20% { transform: translate(-3px, 0px) rotate(1deg); }
-  30% { transform: translate(3px, 2px) rotate(0deg); }
-  40% { transform: translate(1px, -1px) rotate(1deg); }
-  50% { transform: translate(-1px, 2px) rotate(-1deg); }
-  60% { transform: translate(-3px, 1px) rotate(0deg); }
-  70% { transform: translate(3px, 1px) rotate(-1deg); }
-  80% { transform: translate(-1px, -1px) rotate(1deg); }
-  90% { transform: translate(1px, 2px) rotate(0deg); }
-  100% { transform: translate(1px, -2px) rotate(-1deg); }
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
 
 .sigilbox:hover {
@@ -417,39 +416,54 @@ spin {
     animation: 1s ease-out beat infinite;
 }
 
-@keyframes bigzoom {
+@keyframe fadeout {
     from {
-        transform: scale(105%);
+        display: "flex"
     }
     to {
-        transform: scale(3000%);
-        opacity: 0%;
+        display: "none"
+    }
+}
+
+.fadeout {
+    animation: 1s ease-out fadeout forwards;
+}
+
+@keyframes bigzoom {
+    from {
+        transform: scale(1.05);
+        opacity: 1;
+    }
+    to {
+        transform: scale(40);
+        opacity: 0;
     }
 }
 
 .bigzoom {
-  -webkit-animation-name: bigzoom;
-  -webkit-animation-duration: 10s;
-  -webkit-animation-iteration-count: 1;
-  -webkit-animation-timing-function: linear;
-    animation: 1s linear bigzoom forwards !important;
+    -webkit-animation-name: bigzoom;
+    -webkit-animation-duration: -.5s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-timing-function: ease-out;
+    animation: 0.5s ease-out bigzoom forwards !important;
 }
 
 @keyframes flydown {
     from {
-        transform: translateY(100%);
+        transform: translateY(0);
+        opacity: 100%;
     }
     to {
-        transform: translateY(3000%);
+        transform: translateY(+100vh);
         opacity: 0%;
     }
 }
 
 .flydown {
-  -webkit-animation-name: flydown;
-  -webkit-animation-duration: 10s;
-  -webkit-animation-iteration-count: 1;
-  -webkit-animation-timing-function: linear;
+    -webkit-animation-name: flydown;
+    -webkit-animation-duration: 10s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-timing-function: linear;
     animation: 1s linear flydown forwards !important;
 }
 
@@ -460,51 +474,105 @@ spin {
     animation: 1s ease-out hoverbeat infinite;
 }
 
+@keyframes charenter {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(2em);
+    }
+}
+
+.ticker-item {
+    height: 2em;
+    animation: 0.5s linear charenter infinite;
+}
+
+.ticker {
+    height: 110vh;
+    font-family: "AlphabetoftheMagi";
+    font-size: 1.5em;
+    text-shadow: 0 0 1em #f00;
+    position: absolute;
+    top: -10vh;
+    width: 2em;
+    padding: 0 0.5em;
+    border-left: 3px solid var(--accent);
+    border-right: 3px solid var(--accent);
+    overflow: hidden;
+}
+.left-ticker {
+    left: 10vw;
+}
+.right-ticker {
+    left: calc(90vw - 2em)
+}
+
 /*
  *For mobile
  */
 
-@media (pointer:none), (pointer:coarse) {
-    #modal {
-        width: 80%;
-        transform: translate(calc(-50% - 100vw), -50%);
-    }
+    @media (pointer:none), (pointer:coarse) {
+        #modal, #home {
+            max-width: 75%;
+            transform: translate(calc(-50% - 100vw), -50%);
+            margin: 1em;
+            padding: 1em;
+        }
 
-    .flyin-modal {
-        will-change: transform;
-        transition: transform 1s;
-        animation: 0.5s ease-out flyin-modal-mobile forwards;
-    }
+        .flyin-modal {
+            will-change: transform;
+            transition: transform 1s;
+            animation: 0.5s ease-out flyin-modal-mobile forwards;
+        }
 
-    .container, #home {
-        flex-wrap: nowrap !important;
-        align-items: center;
-        place-content: normal !important;
-    }
+        .container, #home {
+            flex-wrap: nowrap !important;
+            align-items: center;
+        }
 
-    @keyframes beat {
-        0% {
-            filter: saturate(100%);
+        #home {
+            place-content: normal !important;
+            padding-top: 3em;
+        }
+
+        @keyframes beat {
+            0% {
+                filter: saturate(100%);
+                width: 90vw;
+            }
+            19% {
+                filter: saturate(130%);
+                width: 91vw;
+            }
+            20% {
+                filter: saturate(150%);
+                width: 92vw;
+            }
+            21% {
+                filter: saturate(130%);
+                width: 91;
+            }
+            100% {
+                filter: saturate(100%);
+                width: 90vw;
+            }
+        }
+        #sigil {
             width: 90vw;
         }
-        19% {
-            filter: saturate(130%);
-            width: 91vw;
+
+        .ticker {
+            font-size: 1em;
+            padding: 0 0;
+            border-left: 1px solid var(--accent);
+            border-right: 1px solid var(--accent);
+            z-index: 2;
         }
-        20% {
-            filter: saturate(150%);
-            width: 92vw;
+        .left-ticker {
+            left: 0;
         }
-        21% {
-            filter: saturate(130%);
-            width: 91;
-        }
-        100% {
-            filter: saturate(100%);
-            width: 90vw;
+        .right-ticker {
+            left: calc(100vw - 2em - 3px)
         }
     }
-    #sigil {
-        width: 90vw;
-    }
-}

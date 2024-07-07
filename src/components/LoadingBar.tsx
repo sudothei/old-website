@@ -48,12 +48,12 @@ export const LoadingBar = () => {
       }}
     >
       <div
-        className="ui-box"
         style={{
           display: "flex",
           flexDirection: "column",
           padding: "1em",
           textAlign: "left",
+          border: "3px solid #f00",
         }}
       >
         <code style={{ color: "red", fontWeight: "bold" }}>

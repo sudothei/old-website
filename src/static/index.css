@@ -377,21 +377,6 @@ spin {
     animation: 1s ease-out hoverbeat infinite;
 }
 
-.services {
-    display: flex;
-    flex-direction: row;
-}
-
-.services-left {
-    margin-right: -3px;
-    max-width: 30vw;
-}
-
-.services-right {
-    margin-left: 0px;
-    max-width: 30vw;
-}
-
 /*
  *For mobile
  */

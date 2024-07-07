@@ -14,30 +14,39 @@ type ServiceKeys = keyof Services;
 
 const typedServices: Services = services as Services;
 
-export const Services = () => {
+export const Services = ({ ...props }) => {
   const [activeService, setActiveService] = useState<ServiceKeys | "">("");
 
+  const selectService = (service: any) => {
+    setActiveService(service);
+    props.openModal();
+  };
+
   return (
-    <div className="services">
-      <div className="ui-box services-left">
-        <h2>Services</h2>
-        <ul>
-          {Object.keys(typedServices).map((x: string) => (
-            <li key={x} onClick={() => setActiveService(x as ServiceKeys)}>
-              {x}
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className="ui-box services-right">
-        {activeService && typedServices[activeService] ? (
-          <li>
-            {typedServices[activeService].map((x: string) => (
-              <p>{x}</p>
-            ))}
-          </li>
-        ) : null}
-      </div>
+    <div className="ui-box">
+      {
+        <div>
+          <div>
+            <h2>Services</h2>
+            <ul>
+              {Object.keys(typedServices).map((x: string) => (
+                <li key={x} onClick={() => selectService(x as ServiceKeys)}>
+                  {x}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            {activeService && typedServices[activeService] ? (
+              <li>
+                {typedServices[activeService].map((x: string) => (
+                  <p>{x}</p>
+                ))}
+              </li>
+            ) : null}
+          </div>
+        </div>
+      }
     </div>
   );
 };

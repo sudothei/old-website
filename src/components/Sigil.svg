@@ -3,7 +3,9 @@
     <feTurbulence in="SourceGraphic" type="fractalNoise" baseFrequency="0.75" numOctaves="2" stitchTiles="nostitch" result="turbulence"/>
     <feDisplacementMap in2="turbulence" in="SourceGraphic" scale="50" xChannelSelector="R" yChannelSelector="G" result="displaced" />
     <feBlend mode="darken" in="displaced" in2="turbulence" result="burned" />
-    <feColorMatrix in="burned" type="hueRotate" values="0" result="redHue"/>
+    <feBlend mode="darken" in="burned" in2="turbulence" result="burned2" />
+    <feBlend mode="darken" in="burned2" in2="turbulence" result="burned3" />
+    <feColorMatrix in="burned3" type="hueRotate" values="0" result="redHue"/>
     <feColorMatrix in="redHue" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="red" />
     <feDropShadow in="red" dx="0.2" dy="0.4" stdDeviation="0.2" result="shadow" />
     <feBlend mode="darken" in="shadow" in2="turbulence" />

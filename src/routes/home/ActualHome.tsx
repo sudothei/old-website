@@ -1,6 +1,4 @@
 import * as React from "react";
-import { AnimatedPfp } from "./components/AnimatedPfp";
-import { SocialButtons } from "./components/SocialButtons";
 import { useState } from "react";
 import { Modal } from "./components/Modal";
 import services from "components/services.json";
@@ -65,9 +63,6 @@ export const ActualHome = ({ ...props }) => {
         }}
       >
         <div className="ui-box">
-          <AnimatedPfp />
-        </div>
-        <div className="ui-box">
           <h2>Services</h2>
           <ul>
             {Object.keys(typedServices).map((x: string) => (
@@ -80,9 +75,6 @@ export const ActualHome = ({ ...props }) => {
               </li>
             ))}
           </ul>
-        </div>
-        <div className="ui-box">
-          <SocialButtons />
         </div>
       </div>
     </div>

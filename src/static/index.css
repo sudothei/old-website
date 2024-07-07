@@ -1,592 +1,662 @@
 :root {
-    --accent: #f00;
+    --accent:red
 }
 
 @font-face {
-    font-family: "Kode Mono";
-    src: url("static/fonts/KodeMono.ttf") format("woff2");
-    font-display: swap;
+    font-family:"Kode Mono";
+    src:url(static/fonts/KodeMono.ttf) format("woff2");
+    font-display:swap
 }
 
 @font-face {
-    font-family: "Syne Mono";
-    src: url("static/fonts/SyneMono-Regular.ttf") format("woff2");
-    font-display: swap;
+    font-family:"Syne Mono";
+    src:url(static/fonts/SyneMono-Regular.ttf) format("woff2");
+    font-display:swap
 }
 
 @font-face {
-    font-family: "AlphabetoftheMagi";
-    src: url("static/fonts/AlphabetoftheMagi.ttf") format("woff2");
-    font-display: swap;
+    font-family:"AlphabetoftheMagi";
+    src:url(static/fonts/AlphabetoftheMagi.ttf) format("woff2");
+    font-display:swap
 }
 
 @font-face {
-    font-family: "Rosarivo";
-    src: url("static/fonts/Rosarivo-Regular.ttf") format("woff2");
-    font-display: swap;
+    font-family:"Rosarivo";
+    src:url(static/fonts/Rosarivo-Regular.ttf) format("woff2");
+    font-display:swap
 }
 
 .abandon {
-    font-family: "Rosarivo";
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    font-family:"Rosarivo";
+    position:absolute;
+    bottom:0;
+    left:50%;
+    transform:translateX(-50%)
 }
 
 textarea {
-    resize: none;
+    resize:none
 }
 
 @keyframes scrollBackground {
     from {
-        background-position: 0 0;
+        background-position:0 0
     }
+
     to {
-        background-position: 0 100%;
+        background-position:0 100%
     }
 }
 
 body {
-    text-align: center;
-    font-family: 'Kode Mono';
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    background: url("static/media/background.webp") repeat;
-    color: var(--accent);
-    animation: scrollBackground 30s linear infinite;
+    text-align:center;
+    font-family:'Kode Mono';
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    background:url(static/media/background.webp) repeat;
+    color:var(--accent);
+    animation:scrollBackground 30s linear infinite
 }
 
 @keyframes flyin-modal {
     from {
-        transform: translate(calc(-50% + 100vw), -50%);
+        transform:translate(calc(-50% + 100vw),-50%)
     }
+
     to {
-        transform: translate(-50%, -50%);
+        transform:translate(-50%,-50%)
     }
 }
 
 @keyframes flyin-modal-mobile {
     from {
-        transform: translate(calc(-50% + 100vw), -50%);
+        transform:translate(calc(-50% + 100vw),-50%)
     }
+
     to {
-        transform: translate(-54%, -54%);
+        transform:translate(-54%,-54%)
     }
 }
 
 @keyframes flyout-modal {
     from {
-        transform: translate(-50%, -50%);
+        transform:translate(-50%,-50%)
     }
+
     to {
-        transform: translate(calc(-50% + 100vw), -50%);
+        transform:translate(calc(-50% + 100vw),-50%)
     }
 }
 
 @keyframes flyin {
     from {
-        transform: translateX(-100vw);
+        transform:translateX(-100vw)
     }
+
     to {
-        transform: translateX(0);
+        transform:translateX(0)
     }
 }
 
 @keyframes flyout {
     from {
-        transform: translateX(0);
+        transform:translateX(0)
     }
+
     to {
-        transform: translateX(-100vw);
+        transform:translateX(-100vw)
     }
 }
 
 .ui-box {
-    border: 3px solid var(--accent);
-    width: fit-content;
-    height: fit-content;
-    justify-content: center;
-    flex-flow: column;
-    background-color: rgb(255,0,0,0.18);
-    margin: 1em;
-    padding: 1em;
+    border:3px solid var(--accent);
+    width:fit-content;
+    height:fit-content;
+    justify-content:center;
+    flex-flow:column;
+    background-color:#ff00002e;
+    margin:1em;
+    padding:1em
 }
 
 .flyin {
-    animation: 0.25s ease-out flyin forwards;
+    animation:.25s ease-out flyin forwards
 }
 
 .flyout {
-    animation: 0.25s ease-in flyout forwards;
+    animation:.25s ease-in flyout forwards
 }
 
 #modal {
-    display: flex;
-    border: 3px solid var(--accent);
-    width: max-content;
-    height: fit-content;
-    justify-content: center;
-    flex-flow: column;
-    background-color: rgb(255,0,0,0.18);
-    margin: 1em;
-    padding: 1em;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(calc(-50% - 100vw), -50%);
+    display:flex;
+    border:3px solid var(--accent);
+    width:max-content;
+    height:fit-content;
+    justify-content:center;
+    flex-flow:column;
+    background-color:#ff00002e;
+    margin:1em;
+    padding:1em;
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(calc(-50% - 100vw),-50%)
 }
 
 .flyin-modal {
-    will-change: transform;
-    transition: transform 1s;
-    animation: 0.25s ease-out flyin-modal forwards;
+    will-change:transform;
+    transition:transform 1s;
+    animation:.25s ease-out flyin-modal forwards
 }
 
 .flyout-modal {
-    will-change: transform;
-    transition: transform 1s;
-    animation: 0.25s ease-in flyout-modal forwards;
+    will-change:transform;
+    transition:transform 1s;
+    animation:.25s ease-in flyout-modal forwards
 }
 
 ul {
-    display: contents;
+    display:contents
 }
 
 li {
-    border: 3px solid var(--accent);
-    padding: 0.5em;
-    margin: 1em;
-    font-weight: bold
+    border:3px solid var(--accent);
+    padding:.5em;
+    margin:1em;
+    font-weight:700
 }
 
 code {
-    font-family: 'Syne Mono', 'Monospace';
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    font-family:'Syne Mono','Monospace';
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale
 }
 
-body, html, #root {
-    height: 100%;
-    width: 100%;
-    margin: 0;
+body,html,#root {
+    height:100%;
+    width:100%;
+    margin:0
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
-*::-webkit-scrollbar {
-    display: none;
+::-webkit-scrollbar {
+    display:none
 }
 
 .container {
-    /* Hide scrollbar for IE, Edge and Firefox */
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap-reverse;
-    justify-content: center;
-    width: 100%;
-    height: 100vh;
-    max-width: 100%;
-    max-height: 100%;
-    box-sizing: border-box;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    position: fixed;
-    align-content: center;
-    box-shadow: inset 0 0 10rem black,inset 0 0 5rem black ;
+    -ms-overflow-style:none;
+    scrollbar-width:none;
+    display:flex;
+    flex-direction:column;
+    flex-wrap:wrap-reverse;
+    justify-content:center;
+    width:100%;
+    height:100vh;
+    max-width:100%;
+    max-height:100%;
+    box-sizing:border-box;
+    overflow-x:hidden;
+    overflow-y:scroll;
+    position:fixed;
+    align-content:center;
+    box-shadow:inset 0 0 10rem black,inset 0 0 5rem #000
 }
 
 canvas {
-    image-rendering: -moz-crisp-edges;    /* Firefox */
-    image-rendering: -webkit-crisp-edges; /* Webkit (Safari) */
-    image-rendering: pixelated;           /* Chrome */
+    image-rendering:-moz-crisp-edges;
+    image-rendering:-webkit-crisp-edges;
+    image-rendering:pixelated
 }
 
-.symbol-btn, .symbol-btn-selected {
-    border: 3px solid var(--accent);
-    min-height: 50px;
-    max-height: 50px;
-    min-width: 50px;
-    max-width: 50px;
-    margin: 5px;
-    font-size: 4em;
-    cursor: pointer;
-    font-family: monospace;
-    line-height: 50px;
+.symbol-btn,.symbol-btn-selected {
+    border:3px solid var(--accent);
+    min-height:50px;
+    max-height:50px;
+    min-width:50px;
+    max-width:50px;
+    margin:5px;
+    font-size:4em;
+    cursor:pointer;
+    font-family:monospace;
+    line-height:50px
 }
 
 .symbol-btn-selected {
-    background: var(--accent);
-    color: #000;
+    background:var(--accent);
+    color:#000
 }
 
 .enochian-letter {
-    min-height: 50px;
-    max-height: 50px;
-    min-width: 50px;
-    max-width: 50px;
-    margin: 5px;
+    min-height:50px;
+    max-height:50px;
+    min-width:50px;
+    max-width:50px;
+    margin:5px
 }
 
 a {
-    text-decoration: none;
-    color: var(--accent);
+    text-decoration:none;
+    color:var(--accent)
 }
+
 pre {
-    font-family: monospace !important;
-    font-size: 1.2em !important;
+    font-family:monospace!important;
+    font-size:1.2em!important
 }
 
 .tanakh-filter {
-    font-family: monospace;
-    background: transparent;
-    color: var(--accent);
-    font-size: 2em;
-    font-weight: 900;
-    border: 3px solid var(--accent);
-    padding: .2em;
-    margin: .4em;
-    width: fit-content;
-    text-align: center;
+    font-family:monospace;
+    background:transparent;
+    color:var(--accent);
+    font-size:2em;
+    font-weight:900;
+    border:3px solid var(--accent);
+    padding:.2em;
+    margin:.4em;
+    width:fit-content;
+    text-align:center
 }
 
-select.tanakh-filter:focus, input.tanakh-filter:focus {
-    background-color: var(--accent);
-    color: black;
+select.tanakh-filter:focus,input.tanakh-filter:focus {
+    background-color:var(--accent);
+    color:#000
 }
 
 .gematria-word {
-    margin-right: 1.5em;
-    font-size: 1.5em;
-    padding-bottom: 1em;
+    margin-right:1.5em;
+    font-size:1.5em;
+    padding-bottom:1em
 }
 
-.gematria-word:hover, .gematria-word-selected {
-    background: var(--accent);
-    color: black;
+.gematria-word:hover,.gematria-word-selected {
+    background:var(--accent);
+    color:#000
 }
 
 input[type=number] {
-    width: 3em;
-    text-align: center;
+    width:3em;
+    text-align:center
 }
 
 input[type="number"] {
-    -webkit-appearance: textfield;
-    -moz-appearance: textfield;
-    appearance: textfield;
+    -webkit-appearance:textfield;
+    -moz-appearance:textfield;
+    appearance:textfield
 }
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-    -webkit-appearance: none;
-    appearance: none;
+
+input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance:none;
+    appearance:none
 }
 
 select.tanakh-filter * {
-    background-color: black;
-    color: var(--accent)
+    background-color:#000;
+    color:var(--accent)
 }
 
 li::marker {
-    content: '';
+    content:''
 }
 
-*:focus {
-    outline: none;
+:focus {
+    outline:none
 }
 
 @-moz-keyframes spin {
-    from { -moz-transform: rotate(360deg); }
-    to { -moz-transform: rotate(0deg); }
+    from {
+        -moz-transform:rotate(360deg)
+    }
+
+    to {
+        -moz-transform:rotate(0deg)
+    }
 }
+
 @-webkit-keyframes spin {
-    from { -webkit-transform: rotate(360deg); }
-    to { -webkit-transform: rotate(0deg); }
+    from {
+        -webkit-transform:rotate(360deg)
+    }
+
+    to {
+        -webkit-transform:rotate(0deg)
+    }
 }
+
 @keyframes spin {
-    from {transform:rotate(360deg);}
-    to {transform:rotate(0deg);}
+    from {
+        transform:rotate(360deg)
+    }
+
+    to {
+        transform:rotate(0deg)
+    }
 }
 
 spin {
-    animation: 3s linear spin infinite;
+    animation:3s linear spin infinite
 }
 
 @keyframes glow {
     from {
-        filter: saturate(100%);
+        filter:saturate(100%)
     }
+
     to {
-        filter: saturate(200%);
+        filter:saturate(200%)
     }
 }
 
 @keyframes fade {
     from {
-        filter: saturate(200%);
+        filter:saturate(200%)
     }
+
     to {
-        filter: saturate(100%);
+        filter:saturate(100%)
     }
 }
 
 .sigilbox {
-    animation: 0.5s linear fade forwards;
-    filter: drop-shadow(0 0 2em black) drop-shadow(0 0 0.5em black);
+    animation:.5s linear fade forwards;
+    filter:drop-shadow(0 0 2em black) drop-shadow(0 0 0.5em black)
 }
 
 @keyframes shake {
-    0% { transform: translate(1px, 1px) rotate(0deg); }
-    10% { transform: translate(-1px, -2px) rotate(-1deg); }
-    20% { transform: translate(-3px, 0px) rotate(1deg); }
-    30% { transform: translate(3px, 2px) rotate(0deg); }
-    40% { transform: translate(1px, -1px) rotate(1deg); }
-    50% { transform: translate(-1px, 2px) rotate(-1deg); }
-    60% { transform: translate(-3px, 1px) rotate(0deg); }
-    70% { transform: translate(3px, 1px) rotate(-1deg); }
-    80% { transform: translate(-1px, -1px) rotate(1deg); }
-    90% { transform: translate(1px, 2px) rotate(0deg); }
-    100% { transform: translate(1px, -2px) rotate(-1deg); }
+    0% {
+        transform:translate(1px,1px) rotate(0deg)
+    }
+
+    10% {
+        transform:translate(-1px,-2px) rotate(-1deg)
+    }
+
+    20% {
+        transform:translate(-3px,0px) rotate(1deg)
+    }
+
+    30% {
+        transform:translate(3px,2px) rotate(0deg)
+    }
+
+    40% {
+        transform:translate(1px,-1px) rotate(1deg)
+    }
+
+    50% {
+        transform:translate(-1px,2px) rotate(-1deg)
+    }
+
+    60% {
+        transform:translate(-3px,1px) rotate(0deg)
+    }
+
+    70% {
+        transform:translate(3px,1px) rotate(-1deg)
+    }
+
+    80% {
+        transform:translate(-1px,-1px) rotate(1deg)
+    }
+
+    90% {
+        transform:translate(1px,2px) rotate(0deg)
+    }
+
+    100% {
+        transform:translate(1px,-2px) rotate(-1deg)
+    }
 }
 
 .sigilbox:hover {
-    animation: 0.5s linear glow forwards;
+    animation:.5s linear glow forwards
 }
 
 @keyframes beat {
     0% {
-        filter: saturate(100%) drop-shadow(0 0 0 red);
-        width: 80vh;
+        filter:saturate(100%) drop-shadow(0 0 0 red);
+        width:80vh
     }
+
     14% {
-        filter: saturate(150%) drop-shadow(0 0 0.5em red);
-        width: 83vh;
+        filter:saturate(150%) drop-shadow(0 0 0.5em red);
+        width:83vh
     }
+
     28% {
-        filter: saturate(200%) drop-shadow(0 0 1em red);
-        width: 85vh;
+        filter:saturate(200%) drop-shadow(0 0 1em red);
+        width:85vh
     }
+
     42% {
-        filter: saturate(150%) drop-shadow(0 0 0.5em red);
-        width: 83vh;
+        filter:saturate(150%) drop-shadow(0 0 0.5em red);
+        width:83vh
     }
+
     70% {
-        filter: saturate(100%) drop-shadow(0 0 0 red);
-        width: 80vh;
+        filter:saturate(100%) drop-shadow(0 0 0 red);
+        width:80vh
     }
+
     100% {
-        filter: saturate(100%) drop-shadow(0 0 0 red);
-        width: 80vh;
+        filter:saturate(100%) drop-shadow(0 0 0 red);
+        width:80vh
     }
 }
 
 @keyframes hoverbeat {
     0% {
-        filter: saturate(100%) drop-shadow(0 0 0 red);
-        width: 80vh;
+        filter:saturate(100%) drop-shadow(0 0 0 red);
+        width:80vh
     }
+
     14% {
-        filter: saturate(150%) drop-shadow(0 0 1em red);
-        width: 83vh;
+        filter:saturate(150%) drop-shadow(0 0 1em red);
+        width:83vh
     }
+
     28% {
-        filter: saturate(200%) drop-shadow(0 0 2em red);
-        width: 85vh;
+        filter:saturate(200%) drop-shadow(0 0 2em red);
+        width:85vh
     }
+
     42% {
-        filter: saturate(150%) drop-shadow(0 0 1em red);
-        width: 83vh;
+        filter:saturate(150%) drop-shadow(0 0 1em red);
+        width:83vh
     }
+
     70% {
-        filter: saturate(100%) drop-shadow(0 0 0 red);
-        width: 80vh;
+        filter:saturate(100%) drop-shadow(0 0 0 red);
+        width:80vh
     }
+
     100% {
-        filter: saturate(100%) drop-shadow(0 0 0 red);
-        width: 80vh;
+        filter:saturate(100%) drop-shadow(0 0 0 red);
+        width:80vh
     }
 }
 
 #sigil {
-    width: 80vh;
-    align-self: center;
-    will-change: filter;
-    transition: filter 1s;
-    animation: 1s ease-out beat infinite;
+    width:80vh;
+    align-self:center;
+    will-change:filter;
+    transition:filter 1s;
+    animation:1s ease-out beat infinite
 }
 
-@keyframe fadeout {
-    from {
-        display: "flex"
-    }
-    to {
-        display: "none"
-    }
+to {
+    display:none
 }
 
 .fadeout {
-    animation: 1s ease-out fadeout forwards;
+    animation:1s ease-out fadeout forwards
 }
 
 @keyframes bigzoom {
     from {
-        transform: scale(1.05);
-        opacity: 1;
+        transform:scale(1.05);
+        opacity:1
     }
+
     to {
-        transform: scale(40);
-        opacity: 0;
+        transform:scale(40);
+        opacity:0
     }
 }
 
 .bigzoom {
-    -webkit-animation-name: bigzoom;
-    -webkit-animation-duration: -.5s;
-    -webkit-animation-iteration-count: 1;
-    -webkit-animation-timing-function: ease-out;
-    animation: 0.5s ease-out bigzoom forwards !important;
+    -webkit-animation-name:bigzoom;
+    -webkit-animation-duration:-.5s;
+    -webkit-animation-iteration-count:1;
+    -webkit-animation-timing-function:ease-out;
+    animation:.5s ease-out bigzoom forwards!important
 }
 
 @keyframes flydown {
     from {
-        transform: translateY(0);
-        opacity: 100%;
+        transform:translateY(0);
+        opacity:100%
     }
+
     to {
-        transform: translateY(+100vh);
-        opacity: 0%;
+        transform:translateY(+100vh);
+        opacity:0
     }
 }
 
 .flydown {
-    -webkit-animation-name: flydown;
-    -webkit-animation-duration: 10s;
-    -webkit-animation-iteration-count: 1;
-    -webkit-animation-timing-function: linear;
-    animation: 1s linear flydown forwards !important;
+    -webkit-animation-name:flydown;
+    -webkit-animation-duration:10s;
+    -webkit-animation-iteration-count:1;
+    -webkit-animation-timing-function:linear;
+    animation:1s linear flydown forwards!important
 }
 
 #sigil:hover {
-    pointer-events: visiblePainted; /* Ensures only painted areas are sensitive to hover */
-    transition: transform 1000ms;
-    transform: scale(110%);
-    animation: 1s ease-out hoverbeat infinite;
+    pointer-events:visiblePainted;
+    transition:transform 1000ms;
+    transform:scale(110%);
+    animation:1s ease-out hoverbeat infinite
 }
 
 @keyframes charenter {
     0% {
-        transform: translateY(0);
+        transform:translateY(0)
     }
+
     100% {
-        transform: translateY(4em);
+        transform:translateY(4em)
     }
 }
 
 .ticker-item {
-    height: 2em;
-    animation: 2s linear charenter infinite;
+    height:2em;
+    animation:2s linear charenter infinite
 }
 
 .ticker {
-    height: 110vh;
-    font-family: "AlphabetoftheMagi";
-    font-size: 1.5em;
-    text-shadow: 0 0 1em #f00;
-    position: absolute;
-    top: -10vh;
-    width: 2em;
-    padding: 0 0.5em;
-    border-left: 3px solid var(--accent);
-    border-right: 3px solid var(--accent);
-    overflow: hidden;
+    height:110vh;
+    font-family:"AlphabetoftheMagi";
+    font-size:1.5em;
+    text-shadow:0 0 1em red;
+    position:absolute;
+    top:-10vh;
+    width:2em;
+    padding:0 .5em;
+    border-left:3px solid var(--accent);
+    border-right:3px solid var(--accent);
+    overflow:hidden
 }
+
 .left-ticker {
-    left: 10vw;
+    left:10vw
 }
+
 .right-ticker {
-    left: calc(90vw - 2em)
+    left:calc(90vw - 2em)
 }
 
-/*
- *For mobile
- */
+@media (pointer:none),(pointer:coarse) {
+    #modal,#home {
+        max-width:75%;
+        transform:translate(calc(-50% - 100vw),-50%);
+        margin:1em;
+        padding:1em
+    }
 
-    @media (pointer:none), (pointer:coarse) {
-        #modal, #home {
-            max-width: 75%;
-            transform: translate(calc(-50% - 100vw), -50%);
-            margin: 1em;
-            padding: 1em;
-        }
+    .flyin-modal {
+        will-change:transform;
+        transition:transform 1s;
+        animation:.5s ease-out flyin-modal-mobile forwards
+    }
 
-        .flyin-modal {
-            will-change: transform;
-            transition: transform 1s;
-            animation: 0.5s ease-out flyin-modal-mobile forwards;
-        }
+    .container,#home {
+        flex-wrap:nowrap!important;
+        align-items:center
+    }
 
-        .container, #home {
-            flex-wrap: nowrap !important;
-            align-items: center;
-        }
+    #home {
+        place-content:normal!important;
+        padding-top:6em
+    }
 
-        #home {
-            place-content: normal !important;
-            padding-top: 3em;
-        }
-
-        @keyframes beat {
-            0% {
-                filter: saturate(100%);
-                width: 90vw;
-            }
-            19% {
-                filter: saturate(130%);
-                width: 91vw;
-            }
-            20% {
-                filter: saturate(150%);
-                width: 92vw;
-            }
-            21% {
-                filter: saturate(130%);
-                width: 91;
-            }
-            100% {
-                filter: saturate(100%);
-                width: 90vw;
-            }
-        }
-        #sigil {
-            width: 90vw;
+    @keyframes beat {
+        0% {
+            filter:saturate(100%);
+            width:90vw
         }
 
-        .ticker {
-            font-size: 1em;
-            padding: 0 0;
-            border-left: 1px solid var(--accent);
-            border-right: 1px solid var(--accent);
-            z-index: 2;
-        }
-        .left-ticker {
-            left: 0;
-        }
-        .right-ticker {
-            left: calc(100vw - 2em - 3px)
+        19% {
+            filter:saturate(130%);
+            width:91vw
         }
 
-        @keyframes charenter {
-            0% {
-                transform: translateY(0);
-            }
-            100% {
-                transform: translateY(4em);
-            }
+        20% {
+            filter:saturate(150%);
+            width:92vw
         }
 
-        .ticker-item {
-            height: 2em;
-            animation: 2s linear charenter infinite;
+        21% {
+            filter:saturate(130%);
+            width:91px
+        }
+
+        100% {
+            filter:saturate(100%);
+            width:90vw
         }
     }
+
+    #sigil {
+        width:90vw
+    }
+
+    .ticker {
+        font-size:1em;
+        padding:0;
+        border-left:1px solid var(--accent);
+        border-right:1px solid var(--accent);
+        z-index:2
+    }
+
+    .left-ticker {
+        left:0
+    }
+
+    .right-ticker {
+        left:calc(100vw - 2em - 3px)
+    }
+
+    .ticker-item {
+        height:2em;
+        animation:2s linear charenter infinite
+    }
+
+    @keyframes charenter {
+        0% {
+            transform:translateY(0)
+        }
+
+        100% {
+            transform:translateY(4em)
+        }
+    }
+}

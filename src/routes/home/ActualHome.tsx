@@ -22,43 +22,55 @@ export const ActualHome = () => {
   const selectService = (service: ServiceKeys | "") => {
     setActiveService(service);
     setModalOpen(true);
+    document.querySelector("#modal")!.className = "modal";
   };
   const [modalOpen, setModalOpen] = useState(false);
 
+  const closeModal = () => {
+    setModalOpen(false);
+    document.querySelector("#modal")!.className = "";
+  };
+
   return (
-    <div className="container">
-      {modalOpen ? (
-        <Modal
-          setModalOpen={setModalOpen}
-          content={
-            <ul>
-              {activeService &&
-                typedServices[activeService].map((x: string, index: number) => (
-                  <p key={index}>{x}</p>
-                ))}
-            </ul>
-          }
-        />
-      ) : (
-        <div className="container">
-          <div className="ui-box">
-            <AnimatedPfp />
-          </div>
-          <div className="ui-box">
-            <h2>Services</h2>
-            <ul>
-              {Object.keys(typedServices).map((x: string) => (
-                <li key={x} onClick={() => selectService(x as ServiceKeys)}>
-                  {x}
-                </li>
+    <div>
+      <Modal
+        style={{ display: modalOpen ? "flex" : "none" }}
+        setModalOpen={setModalOpen}
+        modalOpen={modalOpen}
+        closeModal={closeModal}
+        header={activeService}
+        content={
+          <ul>
+            {activeService &&
+              typedServices[activeService].map((x: string, index: number) => (
+                <p key={index}>{x}</p>
               ))}
-            </ul>
-          </div>
-          <div className="ui-box">
-            <SocialButtons />
-          </div>
+          </ul>
+        }
+      />
+      <div
+        className="container"
+        style={{
+          display: modalOpen ? "none" : "flex",
+        }}
+      >
+        <div className="ui-box">
+          <AnimatedPfp />
         </div>
-      )}
+        <div className="ui-box">
+          <h2>Services</h2>
+          <ul>
+            {Object.keys(typedServices).map((x: string) => (
+              <li key={x} onClick={() => selectService(x as ServiceKeys)}>
+                {x}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="ui-box">
+          <SocialButtons />
+        </div>
+      </div>
     </div>
   );
 };

@@ -57,25 +57,48 @@ body {
     animation: scrollBackground 30s linear infinite;
 }
 
-@keyframes flyin {
+@keyframes flyin-modal {
     from {
-        opacity: 0%;
-        transform: scale(0%) translate(-50%, -50%);
+        transform: translate(calc(-50% + 100vw), -50%);
     }
     to {
-        opacity: 100%;
-        transform: scale(100%) translate(-50%, -50%);
+        transform: translate(-50%, -50%);
     }
 }
 
-@keyframes flyin-uibox {
+@keyframes flyin-modal-mobile {
     from {
-        opacity: 0%;
-        transform: scale(0%);
+        transform: translate(calc(-50% + 100vw), -50%);
     }
     to {
-        opacity: 100%;
-        transform: scale(100%);
+        transform: translate(-54%, -54%);
+    }
+}
+
+@keyframes flyout-modal {
+    from {
+        transform: translate(-50%, -50%);
+    }
+    to {
+        transform: translate(calc(-50% + 100vw), -50%);
+    }
+}
+
+@keyframes flyin {
+    from {
+        transform: translateX(-100vw);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes flyout {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-100vw);
     }
 }
 
@@ -91,6 +114,14 @@ body {
     animation: 0.5s ease-out flyin-uibox;
 }
 
+.flyin {
+    animation: 0.5s ease-out flyin forwards;
+}
+
+.flyout {
+    animation: 0.5s ease-out flyout forwards;
+}
+
 #modal {
     display: flex;
     border: 3px solid var(--accent);
@@ -104,11 +135,19 @@ body {
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(calc(-50% - 100vw), -50%);
 }
 
-.modal {
-    animation: 0.5s ease-out flyin;
+.flyin-modal {
+    will-change: transform;
+    transition: transform 1s;
+    animation: 0.5s ease-out flyin-modal forwards;
+}
+
+.flyout-modal {
+    will-change: transform;
+    transition: transform 1s;
+    animation: 0.5s ease-in flyout-modal forwards;
 }
 
 ul {
@@ -426,14 +465,21 @@ spin {
  */
 
 @media (pointer:none), (pointer:coarse) {
-
     #modal {
         width: 80%;
-    transform: translate(-54%, -50%);
+        transform: translate(calc(-50% - 100vw), -50%);
     }
 
-    .container {
-        flex-wrap: nowrap;
+    .flyin-modal {
+        will-change: transform;
+        transition: transform 1s;
+        animation: 0.5s ease-out flyin-modal-mobile forwards;
+    }
+
+    .container, #home {
+        flex-wrap: nowrap !important;
+        align-items: center;
+        place-content: normal !important;
     }
 
     @keyframes beat {

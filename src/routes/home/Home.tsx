@@ -43,7 +43,7 @@ const App = ({ ...props }) => {
   };
 
   return (
-    <div className="container">
+    <div className="container" style={{ placeContent: "center" }}>
       <div
         className="sigilbox"
         style={{ animation: `${distance}s shake infinite` }}
@@ -70,7 +70,7 @@ export const Home = () => {
   const [entered, setEntered] = useState(false);
 
   return (
-    <div className="App">
+    <div>
       <LoadingBar />
       {entered ? <ActualHome /> : <App setEntered={setEntered} />}
     </div>

@@ -22,21 +22,26 @@ export const ActualHome = () => {
   const selectService = (service: ServiceKeys | "") => {
     setActiveService(service);
     setModalOpen(true);
-    document.querySelector("#modal")!.className = "modal";
+    document.querySelector("#modal")!.className = "flyin-modal";
+    document.querySelector("#home")!.classList.add("flyout");
+    document.querySelector("#home")!.classList.remove("flyin");
   };
   const [modalOpen, setModalOpen] = useState(false);
 
   const closeModal = () => {
     setModalOpen(false);
-    document.querySelector("#modal")!.className = "";
+    document.querySelector("#modal")!.className = "flyout-modal";
+    document.querySelector("#home")!.classList.add("flyin");
+    document.querySelector("#home")!.classList.remove("flyout");
   };
 
   return (
-    <div>
+    <div className="container">
       <Modal
-        style={{ display: modalOpen ? "flex" : "none" }}
+        style={{
+          visibility: modalOpen ? "visible" : "hidden",
+        }}
         setModalOpen={setModalOpen}
-        modalOpen={modalOpen}
         closeModal={closeModal}
         header={activeService}
         content={
@@ -49,9 +54,15 @@ export const ActualHome = () => {
         }
       />
       <div
-        className="container"
+        id="home"
         style={{
-          display: modalOpen ? "none" : "flex",
+          display: "flex",
+          flexWrap: "wrap-reverse",
+          justifyContent: "center",
+          height: "100vh",
+          width: "100%",
+          alignContent: "center",
+          flexDirection: "column",
         }}
       >
         <div className="ui-box">

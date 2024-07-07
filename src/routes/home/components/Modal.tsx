@@ -2,38 +2,31 @@ import * as React from "react";
 
 export const Modal = ({ ...props }) => {
   return (
-    <div className="container">
+    <div id="modal">
       <div
-        id="modal"
         style={{
-          visibility: props.modalOpen ? "visible" : "hidden",
+          width: "100%",
+          contain: "content",
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
         }}
       >
-        <div
+        <h2 style={{ display: "flex" }}>{props.header}</h2>
+        <p
+          className="ui-box"
           style={{
-            width: "100%",
-            contain: "content",
+            margin: 0,
+            lineHeight: "1em",
+            padding: "1em",
             display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
           }}
+          onClick={() => props.closeModal()}
         >
-          <h2 style={{ display: "flex" }}>{props.header}</h2>
-          <p
-            className="ui-box"
-            style={{
-              margin: 0,
-              lineHeight: "1em",
-              padding: "1em",
-              display: "flex",
-            }}
-            onClick={() => props.closeModal()}
-          >
-            X
-          </p>
-        </div>
-        {props.content}
+          X
+        </p>
       </div>
+      {props.content}
     </div>
   );
 };

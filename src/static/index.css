@@ -383,12 +383,12 @@ spin {
 }
 
 .services-left {
-    margin-right: 0;
+    margin-right: -3px;
     max-width: 30vw;
 }
 
 .services-right {
-    margin-left: 0;
+    margin-left: 0px;
     max-width: 30vw;
 }
 

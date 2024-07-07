@@ -25,9 +25,27 @@ export const Ticker: React.FC<TickerProps> = ({ className, ...props }) => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCharacters((prev) => {
-        const newChar = generateRandomHebrewChar();
-        return [newChar, ...prev].slice(0, 100);
+      setCharacters((prevCharacters) => {
+        // Create a copy of the characters array
+        const newCharacters = [...prevCharacters];
+
+        // Determine how many characters to change (half of them)
+        const charactersToChange = Math.ceil(prevCharacters.length / 2);
+
+        // Generate random indices to change
+        const indicesToChange = new Set();
+        while (indicesToChange.size < charactersToChange) {
+          indicesToChange.add(
+            Math.floor(Math.random() * prevCharacters.length)
+          );
+        }
+
+        // Change characters at random indices
+        indicesToChange.forEach((index: number) => {
+          newCharacters[index] = generateRandomHebrewChar();
+        });
+
+        return newCharacters;
       });
     }, 500);
 

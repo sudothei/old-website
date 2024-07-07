@@ -479,13 +479,13 @@ spin {
         transform: translateY(0);
     }
     100% {
-        transform: translateY(2em);
+        transform: translateY(4em);
     }
 }
 
 .ticker-item {
     height: 2em;
-    animation: 0.5s linear charenter infinite;
+    animation: 2s linear charenter infinite;
 }
 
 .ticker {
@@ -574,5 +574,19 @@ spin {
         }
         .right-ticker {
             left: calc(100vw - 2em - 3px)
+        }
+
+        @keyframes charenter {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(4em);
+            }
+        }
+
+        .ticker-item {
+            height: 2em;
+            animation: 2s linear charenter infinite;
         }
     }

@@ -127,7 +127,7 @@ body {
     animation:.25s ease-in flyout forwards
 }
 
-#modal {
+.modal {
     display:flex;
     border:3px solid var(--accent);
     width:max-content;
@@ -575,7 +575,7 @@ to {
 }
 
 @media (pointer:none),(pointer:coarse) {
-    #modal,#home {
+    .modal,#home {
         max-width:75%;
         transform:translate(calc(-50% - 100vw),-50%);
         margin:1em;
@@ -606,17 +606,17 @@ to {
 
         19% {
             filter:saturate(130%);
-            width:91vw
+            width:93vw
         }
 
         20% {
             filter:saturate(150%);
-            width:92vw
+            width:95vw
         }
 
         21% {
             filter:saturate(130%);
-            width:91vw
+            width:93vw
         }
 
         100% {

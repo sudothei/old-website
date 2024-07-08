@@ -20,14 +20,16 @@ export const ActualHome = ({ ...props }) => {
   const selectService = (service: ServiceKeys | "") => {
     setActiveService(service);
     setModalOpen(true);
-    document.querySelector("#modal")!.className = "flyin-modal";
+    document.querySelector("#service-modal")!.classList.add("flyin-modal");
+    document.querySelector("#service-modal")!.classList.remove("flyout-modal");
     document.querySelector("#home")!.className = "flyout";
   };
   const [modalOpen, setModalOpen] = useState(false);
 
   const closeModal = () => {
     setModalOpen(false);
-    document.querySelector("#modal")!.className = "flyout-modal";
+    document.querySelector("#service-modal")!.classList.add("flyout-modal");
+    document.querySelector("#service-modal")!.classList.remove("flyin-modal");
     document.querySelector("#home")!.className = "flyin";
   };
 
@@ -37,6 +39,7 @@ export const ActualHome = ({ ...props }) => {
         style={{
           visibility: modalOpen ? "visible" : "hidden",
         }}
+        id={"service-modal"}
         setModalOpen={setModalOpen}
         closeModal={closeModal}
         header={activeService}

@@ -54,7 +54,9 @@ const App = ({ ...props }) => {
       >
         <img src={Sigil} id="sigil" onClick={abandonAllHope} />
       </div>
-      <h2 className="abandon">Abandon all hope, ye who enter here.</h2>
+      <h2 className="abandon">
+        Abandon all hope,<br></br>ye who enter here.
+      </h2>
       <Helmet>
         <title>sudothei</title>
         <meta

@@ -2,7 +2,7 @@ import * as React from "react";
 
 export const Modal = ({ ...props }) => {
   return (
-    <div id="modal">
+    <div className="modal" id={props.id}>
       <div
         style={{
           width: "100%",

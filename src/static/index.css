@@ -616,7 +616,7 @@ to {
 
         21% {
             filter:saturate(130%);
-            width:91px
+            width:91vw
         }
 
         100% {
@@ -626,7 +626,7 @@ to {
     }
 
     #sigil {
-        width:90vw
+        width:90vw;
     }
 
     .ticker {
